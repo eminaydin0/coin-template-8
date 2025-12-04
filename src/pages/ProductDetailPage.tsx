@@ -109,12 +109,12 @@ const ProductDetailPage = () => {
               backdropFilter: 'blur(12px)',
             }}
           >
-            <Gamepad2 className="w-16 h-16 text-amber-300/50 mx-auto mb-6" />
+            <Gamepad2 className="w-16 h-16 text-purple-300/50 mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-white mb-3">Ürün Bulunamadı</h2>
             <p className="text-gray-400 mb-6">Aradığınız ürün mevcut değil.</p>
             <Link 
               to="/" 
-              className="inline-flex items-center gap-2 px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
+              className="inline-flex items-center gap-2 px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
             >
               <ArrowLeft className="h-4 w-4" />
               Ana sayfaya dön
@@ -132,65 +132,80 @@ const ProductDetailPage = () => {
       <CommonBackground />
       
       <div className="w-full relative z-10">
-        {/* Başlık Section - Compact */}
-        <section className="relative py-10 mb-6 border-b" style={{ borderColor: 'rgba(251, 191, 36, 0.3)' }}>
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              {/* Left: Breadcrumb */}
-              <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
+        {/* Header Section - CategoriesPage Stili */}
+        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+              {/* Breadcrumb */}
+              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
                 <Link 
                   to="/" 
-                  className="flex items-center gap-1.5 text-gray-400 hover:text-amber-400 transition-colors"
+                  className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
                 >
-                  <Home className="h-4 w-4" />
+                  <Home className="h-3.5 w-3.5" />
                   <span>Ana Sayfa</span>
                 </Link>
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                 <Link 
                   to="/oyunlar" 
-                  className="text-gray-400 hover:text-amber-400 transition-colors"
+                  className="text-gray-400 hover:text-purple-300 transition-colors"
                 >
                   Kategoriler
                 </Link>
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                 <Link 
                   to={`/oyunlar/${category.slug}`}
-                  className="text-gray-400 hover:text-amber-400 transition-colors"
+                  className="text-gray-400 hover:text-purple-300 transition-colors"
                 >
                   {category.name}
                 </Link>
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                 <span className="text-gray-300 font-medium line-clamp-1">{product.name}</span>
               </div>
 
-              {/* Right: Badge */}
-              <div className="flex items-center justify-center sm:justify-end gap-2">
-                <Tag className="w-4 h-4 text-amber-400" />
-                <span
-                  className="text-xs font-bold px-3 py-1.5 rounded-full"
-                  style={{
-                    background: 'rgba(251, 191, 36, 0.2)',
-                    border: '1px solid rgba(251, 191, 36, 0.4)',
-                    color: 'rgba(251, 191, 36, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  ÜRÜN DETAYI
-                </span>
+              {/* Title Section */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-7 h-7 rounded-lg flex items-center justify-center"
+                    style={{
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                    }}
+                  >
+                    <Tag className="h-4 w-4 text-purple-300" />
+                  </div>
+                  <h1 className="text-xl sm:text-2xl font-bold text-white">
+                    <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                      {product.name}
+                    </span>
+                  </h1>
+                </div>
+
+                {/* Badge */}
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                    style={{
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                      color: 'rgba(168, 85, 247, 0.95)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    ÜRÜN DETAYI
+                  </span>
+                </div>
               </div>
             </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-3xl font-black text-white">
-              {product.name}
-            </h1>
           </div>
-        </section>
+        </div>
 
         {/* Product Details Section */}
         <section className="relative py-8">
           <div className="px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Product Image */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -223,11 +238,11 @@ const ProductDetailPage = () => {
                       ) : (
                         <motion.div 
                           key="fallback" 
-                          className="flex flex-col items-center justify-center h-full bg-gradient-to-br from-amber-500/20 to-amber-600/10"
+                          className="flex flex-col items-center justify-center h-full bg-gradient-to-br from-purple-500/20 to-purple-600/10"
                           initial={{ opacity: 0 }} 
                           animate={{ opacity: 1 }}
                         >
-                          <Gamepad2 className="w-16 h-16 text-amber-300/50 mb-3" />
+                          <Gamepad2 className="w-16 h-16 text-purple-300/50 mb-3" />
                           <span className="text-gray-400 text-sm">Görsel bulunamadı</span>
                         </motion.div>
                       )}
@@ -239,8 +254,8 @@ const ProductDetailPage = () => {
                     <div 
                       className="px-3 py-1.5 rounded-lg text-xs font-bold text-white"
                       style={{
-                        background: 'rgba(251, 191, 36, 0.25)',
-                        border: '1px solid rgba(251, 191, 36, 0.4)',
+                        background: 'rgba(139, 92, 246, 0.25)',
+                        border: '1px solid rgba(168, 85, 247, 0.4)',
                         backdropFilter: 'blur(8px)',
                       }}
                     >
@@ -268,8 +283,8 @@ const ProductDetailPage = () => {
                 >
                   {/* Price */}
                   <div className="text-center mb-6">
-                    <div className="flex items-center justify-center gap-2 text-amber-300/90 text-sm mb-2">
-                      <div className="w-2 h-2 rounded-full bg-amber-400"></div>
+                    <div className="flex items-center justify-center gap-2 text-purple-300/90 text-sm mb-2">
+                      <div className="w-2 h-2 rounded-full bg-purple-400"></div>
                       <span>Anlık Fiyat</span>
                     </div>
                     <div className="text-4xl font-black text-white tracking-wider mb-4">
@@ -287,7 +302,7 @@ const ProductDetailPage = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={handleBuyNow}
-                      className="w-full font-bold text-black py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
+                      className="w-full font-bold text-black py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
                     >
                       <Zap className="h-5 w-5" />
                       <span>HEMEN SATIN AL</span>
@@ -299,8 +314,8 @@ const ProductDetailPage = () => {
                       onClick={handleAddToCart}
                       className="w-full px-6 py-4 rounded-lg text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                       style={{
-                        background: 'rgba(251, 191, 36, 0.2)',
-                        border: '1px solid rgba(251, 191, 36, 0.3)',
+                        background: 'rgba(139, 92, 246, 0.2)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
                       }}
                     >
                       <ShoppingCart className="h-5 w-5" />
@@ -309,39 +324,38 @@ const ProductDetailPage = () => {
                   </div>
                 </div>
               </motion.div>
-            </div>
+              </div>
 
-            {/* Product Description */}
-            {product.detail && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="mt-8"
-              >
-                <div 
-                  className="rounded-xl border p-6"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    border: '1px solid rgba(75, 85, 99, 0.2)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                    backdropFilter: 'blur(12px)',
-                  }}
+              {/* Product Description */}
+              {product.detail && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="mt-8"
                 >
-                  <h2 className="text-xl font-bold text-white mb-4">Ürün Açıklaması</h2>
                   <div 
-                    className="text-gray-300 text-sm leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: product.detail }}
-                  />
-                </div>
-              </motion.div>
-            )}
+                    className="rounded-xl border p-6"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.7)',
+                      border: '1px solid rgba(75, 85, 99, 0.2)',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <h2 className="text-xl font-bold text-white mb-4">Ürün Açıklaması</h2>
+                    <div 
+                      className="text-gray-300 text-sm leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: product.detail }}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </div>
           </div>
         </section>
-
       </div>
-
-      </div>
+    </div>
     </>
   );
 };

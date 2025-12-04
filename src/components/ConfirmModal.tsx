@@ -96,8 +96,8 @@ const ConfirmModal = ({
           className="relative w-full max-w-md rounded-xl border overflow-hidden"
           style={{
             background: 'rgba(0, 0, 0, 0.85)',
-            border: '1px solid rgba(251, 191, 36, 0.3)',
-            boxShadow: '0 8px 32px rgba(251, 191, 36, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
+            border: '1px solid rgba(168, 85, 247, 0.3)',
+            boxShadow: '0 8px 32px rgba(139, 92, 246, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
             backdropFilter: 'blur(16px)',
           }}
         >

@@ -5,9 +5,11 @@ import {
   ShoppingCart, 
   CreditCard, 
   Download,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const HowItWorksSection = () => {
   const steps = [
@@ -39,95 +41,159 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="relative py-8">
-      <div className="px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-2">
-            Nasıl Çalışır?
-          </h2>
-          
-          <p className="text-amber-300/90 text-sm max-w-xl mx-auto">
-            Sipariş verme sürecimiz çok basit ve güvenli.
-          </p>
-        </div>
+    <section className="relative w-full h-full">
+      <div className="h-full flex flex-col justify-between">
+        {/* Modern Compact Header */}
+        <motion.div 
+          className="mb-5"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div 
+              className="w-6 h-6 rounded-lg flex items-center justify-center"
+              style={{
+                background: 'rgba(139, 92, 246, 0.12)',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+              }}
+            >
+              <Sparkles className="h-3 w-3 text-purple-300" />
+            </div>
+            <h3 className="text-lg font-bold text-white">
+              <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+                Nasıl Çalışır?
+              </span>
+            </h3>
+          </div>
+          <p className="text-gray-400 text-[10px] ml-8">5 kolay adımda oyunlarınızı alın</p>
+        </motion.div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-          {steps.map((step) => (
-            <StepCard key={step.id} step={step} />
+        {/* Modern Steps List */}
+        <div className="flex-1 flex flex-col justify-center space-y-2">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+            >
+              <StepCard step={step} index={index} totalSteps={steps.length} />
+            </motion.div>
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center">
+        {/* Modern CTA Button */}
+        <motion.div 
+          className="mt-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+        >
           <Link
             to="/nasilyapilir"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-black bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)] transition-all"
+            className="group relative inline-flex items-center justify-center gap-1.5 w-full px-4 py-2 rounded-lg font-semibold text-white text-xs transition-all overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(192, 132, 252, 1))',
+              boxShadow: '0 2px 12px rgba(139, 92, 246, 0.4)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(139, 92, 246, 0.6)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 2px 12px rgba(139, 92, 246, 0.4)';
+            }}
           >
-            <span>Detaylı Rehber</span>
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 0.5 }}
+            />
+            <span className="relative z-10">Detaylı Rehber</span>
+            <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform relative z-10" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 };
 
-const StepCard = ({ step }: { step: { id: number; title: string; icon: any } }) => {
+const StepCard = ({ step, index, totalSteps }: { step: { id: number; title: string; icon: any }; index: number; totalSteps: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div className="group relative">
-      {/* Connection Line */}
-      {step.id < 5 && (
-        <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-gradient-to-r from-amber-400/60 to-transparent z-10"></div>
+      {/* Minimal Connection Line */}
+      {step.id < totalSteps && (
+        <div className="absolute top-full left-4 w-0.5 h-1.5 z-10">
+          <div 
+            className="w-full h-full bg-gradient-to-b transition-all duration-300"
+            style={{
+              background: isHovered
+                ? 'linear-gradient(to bottom, rgba(168, 85, 247, 0.4), transparent)'
+                : 'linear-gradient(to bottom, rgba(168, 85, 247, 0.25), transparent)',
+            }}
+          />
+        </div>
       )}
 
-      <div 
-        className="relative rounded-xl border pt-8 pb-6 px-6 text-center transition-all duration-300"
+      <motion.div 
+        className="relative rounded-lg border p-2.5 transition-all duration-300 flex items-center gap-2.5"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        whileHover={{ x: 1 }}
         style={{
-          background: 'rgba(0, 0, 0, 0.7)',
+          background: isHovered
+            ? 'rgba(0, 0, 0, 0.85)'
+            : 'rgba(0, 0, 0, 0.7)',
           border: isHovered
-            ? '1px solid rgba(251, 191, 36, 0.3)'
+            ? '1px solid rgba(168, 85, 247, 0.4)'
             : '1px solid rgba(75, 85, 99, 0.2)',
           boxShadow: isHovered
-            ? '0 8px 24px rgba(251, 191, 36, 0.15), 0 4px 12px rgba(0,0,0,0.3)'
-            : '0 4px 16px rgba(0,0,0,0.3)',
+            ? '0 2px 8px rgba(139, 92, 246, 0.15)'
+            : '0 1px 3px rgba(0,0,0,0.2)',
           backdropFilter: 'blur(12px)',
         }}
       >
-        {/* Step Number */}
+        {/* Minimal Step Number */}
         <div 
-          className="absolute -top-4 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center text-black font-black text-base z-20"
+          className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-[10px] flex-shrink-0 transition-all duration-300"
           style={{
-            background: 'linear-gradient(135deg, rgba(251, 191, 36, 1), rgba(245, 158, 11, 1))',
-            boxShadow: '0 4px 16px rgba(251, 191, 36, 0.5), 0 2px 8px rgba(0,0,0,0.3)',
-            border: '2px solid rgba(0, 0, 0, 0.2)',
+            background: isHovered
+              ? 'linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(192, 132, 252, 1))'
+              : 'linear-gradient(135deg, rgba(139, 92, 246, 0.8), rgba(192, 132, 252, 0.8))',
+            boxShadow: isHovered
+              ? '0 2px 6px rgba(139, 92, 246, 0.4)'
+              : '0 1px 3px rgba(139, 92, 246, 0.3)',
+            border: '1px solid rgba(168, 85, 247, 0.3)',
           }}
         >
           {step.id}
         </div>
         
-        {/* Icon */}
+        {/* Minimal Icon */}
         <div 
-          className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4"
+          className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300"
           style={{
-            background: 'rgba(251, 191, 36, 0.15)',
-            border: '1px solid rgba(251, 191, 36, 0.25)',
-            boxShadow: '0 4px 16px rgba(251, 191, 36, 0.2)',
+            background: isHovered
+              ? 'rgba(139, 92, 246, 0.2)'
+              : 'rgba(139, 92, 246, 0.12)',
+            border: isHovered
+              ? '1px solid rgba(168, 85, 247, 0.35)'
+              : '1px solid rgba(168, 85, 247, 0.2)',
           }}
         >
-          <step.icon className="h-7 w-7 text-amber-300" />
+          <step.icon className="h-3.5 w-3.5 text-purple-300 transition-transform duration-300 group-hover:scale-110" />
         </div>
         
-        {/* Title */}
-        <h3 className="text-white font-semibold text-sm group-hover:text-amber-300 transition-colors duration-300">
-          {step.title}
-        </h3>
-      </div>
+        {/* Minimal Title */}
+        <div className="flex-1 min-w-0">
+          <h3 className="text-white font-semibold text-xs group-hover:text-purple-300 transition-colors duration-300">
+            {step.title}
+          </h3>
+        </div>
+      </motion.div>
     </div>
   );
 };

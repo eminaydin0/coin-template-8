@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, Users, LogIn } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, Users, LogIn, Home, ChevronRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import SEOHead from '../components/SEOHead';
 import CommonBackground from '../components/CommonBackground';
@@ -51,14 +51,64 @@ const LoginPage = () => {
       <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
         <CommonBackground />
 
-        <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-lg mx-auto space-y-6">
-            <div className="text-center space-y-2">
-              <h1 className="text-2xl sm:text-3xl font-black text-white">Giriş Yap</h1>
-              <p className="text-gray-400 text-sm sm:text-base">
-                E-posta adresin ve şifrenle hesabına giriş yaparak alışverişe kaldığın yerden devam et.
-              </p>
+        <div className="w-full relative z-10">
+          {/* Header Section - CategoriesPage Stili */}
+          <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+                {/* Breadcrumb */}
+                <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
+                  <Link 
+                    to="/" 
+                    className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
+                  >
+                    <Home className="h-3.5 w-3.5" />
+                    <span>Ana Sayfa</span>
+                  </Link>
+                  <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
+                  <span className="text-gray-300 font-medium">Giriş Yap</span>
+                </div>
+
+                {/* Title Section */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="w-7 h-7 rounded-lg flex items-center justify-center"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.15)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                      }}
+                    >
+                      <LogIn className="h-4 w-4 text-purple-300" />
+                    </div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-white">
+                      <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                        Giriş Yap
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* Badge */}
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.15)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        color: 'rgba(168, 85, 247, 0.95)',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    >
+                      HESAP GİRİŞİ
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-lg mx-auto space-y-6">
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -75,7 +125,7 @@ const LoginPage = () => {
               <div
                 className="absolute top-0 left-0 right-0 h-1"
                 style={{
-                  background: 'linear-gradient(90deg, rgba(251, 191, 36, 0.7), rgba(251, 191, 36, 0.2), transparent)',
+                  background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.7), rgba(168, 85, 247, 0.2), transparent)',
                 }}
               />
 
@@ -102,7 +152,7 @@ const LoginPage = () => {
                       E-posta Adresi
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-400/70" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-purple-300/70" />
                       <input
                         type="email"
                         id="email"
@@ -117,21 +167,21 @@ const LoginPage = () => {
                           background: emailInvalid ? 'rgba(239, 68, 68, 0.08)' : 'rgba(0, 0, 0, 0.65)',
                           border: emailInvalid
                             ? '1.5px solid rgba(239, 68, 68, 0.5)'
-                            : '1.5px solid rgba(251, 191, 36, 0.25)',
+                            : '1.5px solid rgba(168, 85, 247, 0.25)',
                           boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
                         }}
                         onFocus={(e) => {
                           if (!emailInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.55)';
+                            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.55)';
                             e.currentTarget.style.boxShadow =
-                              '0 0 0 3px rgba(251, 191, 36, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
+                              '0 0 0 3px rgba(139, 92, 246, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
                             e.currentTarget.style.background = 'rgba(0, 0, 0, 0.72)';
                           }
                         }}
                         onBlur={(e) => {
                           handleBlur(e);
                           if (!emailInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.25)';
+                            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
                             e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
                             e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)';
                           }
@@ -151,7 +201,7 @@ const LoginPage = () => {
                       Şifre
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-amber-400/70" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-purple-300/70" />
                       <input
                         type={showPassword ? 'text' : 'password'}
                         id="password"
@@ -166,21 +216,21 @@ const LoginPage = () => {
                           background: passwordInvalid ? 'rgba(239, 68, 68, 0.08)' : 'rgba(0, 0, 0, 0.65)',
                           border: passwordInvalid
                             ? '1.5px solid rgba(239, 68, 68, 0.5)'
-                            : '1.5px solid rgba(251, 191, 36, 0.25)',
+                            : '1.5px solid rgba(168, 85, 247, 0.25)',
                           boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
                         }}
                         onFocus={(e) => {
                           if (!passwordInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.55)';
+                            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.55)';
                             e.currentTarget.style.boxShadow =
-                              '0 0 0 3px rgba(251, 191, 36, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
+                              '0 0 0 3px rgba(139, 92, 246, 0.15), inset 0 2px 4px rgba(0,0,0,0.2)';
                             e.currentTarget.style.background = 'rgba(0, 0, 0, 0.72)';
                           }
                         }}
                         onBlur={(e) => {
                           handleBlur(e);
                           if (!passwordInvalid) {
-                            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.25)';
+                            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
                             e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
                             e.currentTarget.style.background = 'rgba(0, 0, 0, 0.65)';
                           }
@@ -190,7 +240,7 @@ const LoginPage = () => {
                       <button
                         type="button"
                         onClick={() => setShowPassword((s) => !s)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-amber-400 transition-all duration-200 p-1.5 rounded-lg hover:bg-amber-400/10"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-purple-300 transition-all duration-200 p-1.5 rounded-lg hover:bg-purple-300/10"
                         aria-label={showPassword ? 'Şifreyi gizle' : 'Şifreyi göster'}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -208,20 +258,20 @@ const LoginPage = () => {
                     disabled={loading}
                     className="relative w-full font-bold text-black py-3.5 px-5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden mt-4 group/btn"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(251, 191, 36, 1), rgba(251, 191, 36, 0.9), rgba(234, 179, 8, 1))',
-                      boxShadow: '0 10px 28px rgba(251,191,36,0.45), inset 0 1px 0 rgba(255,255,255,0.35)',
+                      background: 'linear-gradient(135deg, rgba(168, 85, 247, 1), rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 1))',
+                      boxShadow: '0 10px 28px rgba(139,92,246,0.45), inset 0 1px 0 rgba(255,255,255,0.35)',
                     }}
                     whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -2 }}
                     whileTap={{ scale: 0.98 }}
                     onMouseEnter={(e) => {
                       if (!loading) {
                         e.currentTarget.style.boxShadow =
-                          '0 14px 36px rgba(251,191,36,0.55), inset 0 1px 0 rgba(255,255,255,0.4)';
+                          '0 14px 36px rgba(139,92,246,0.55), inset 0 1px 0 rgba(255,255,255,0.4)';
                       }
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.boxShadow =
-                        '0 10px 28px rgba(251,191,36,0.45), inset 0 1px 0 rgba(255,255,255,0.35)';
+                        '0 10px 28px rgba(139,92,246,0.45), inset 0 1px 0 rgba(255,255,255,0.35)';
                     }}
                   >
                     {loading ? (
@@ -237,17 +287,17 @@ const LoginPage = () => {
                     )}
                   </motion.button>
 
-                  <div className="text-center pt-6 border-t" style={{ borderColor: 'rgba(251, 191, 36, 0.15)' }}>
+                  <div className="text-center pt-6 border-t" style={{ borderColor: 'rgba(168, 85, 247, 0.15)' }}>
                     <p className="text-gray-400 text-sm mb-3">Henüz hesabın yok mu?</p>
                     <Link
                       to="/kayit-ol"
                       className="inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-xl border transition-all duration-200"
                       style={{
-                        border: '1px solid rgba(251, 191, 36, 0.45)',
-                        color: 'rgba(251, 191, 36, 0.95)',
+                        border: '1px solid rgba(168, 85, 247, 0.45)',
+                        color: 'rgba(168, 85, 247, 0.95)',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'rgba(251, 191, 36, 0.12)';
+                        e.currentTarget.style.background = 'rgba(139, 92, 246, 0.12)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = 'transparent';
@@ -260,6 +310,7 @@ const LoginPage = () => {
                 </form>
               </div>
             </motion.div>
+            </div>
           </div>
         </div>
       </div>

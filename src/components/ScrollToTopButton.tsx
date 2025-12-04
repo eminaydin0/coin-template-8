@@ -29,23 +29,23 @@ const ScrollToTopButton = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-xl border transition-all duration-200 flex items-center justify-center"
+          className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-xl border transition-all duration-200 flex items-center justify-center"
           style={{
             background: 'rgba(0, 0, 0, 0.7)',
-            border: '1px solid rgba(251, 191, 36, 0.3)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(251,191,36,0.2)',
+            border: '1px solid rgba(168, 85, 247, 0.3)',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(139,92,246,0.2)',
             backdropFilter: 'blur(12px)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.5)';
-            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.3), 0 0 30px rgba(251,191,36,0.4)';
+            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.5)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.3), 0 0 30px rgba(139,92,246,0.4)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)';
-            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(251,191,36,0.2)';
+            e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(139,92,246,0.2)';
           }}
         >
-          <ArrowUp className="w-5 h-5 text-amber-400" />
+          <ArrowUp className="w-4 h-4 text-purple-300" />
         </motion.button>
       )}
     </AnimatePresence>

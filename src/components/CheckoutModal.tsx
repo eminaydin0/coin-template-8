@@ -191,8 +191,8 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
           className="relative w-full max-w-lg rounded-xl border pointer-events-auto"
           style={{
             background: 'rgba(0, 0, 0, 0.85)',
-            border: '1px solid rgba(251, 191, 36, 0.3)',
-            boxShadow: '0 8px 32px rgba(251, 191, 36, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
+            border: '1px solid rgba(168, 85, 247, 0.3)',
+            boxShadow: '0 8px 32px rgba(139, 92, 246, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
             backdropFilter: 'blur(16px)',
           }}
         >
@@ -200,19 +200,19 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
           <div 
             className="p-4 border-b"
             style={{
-              background: 'rgba(251, 191, 36, 0.1)',
-              borderColor: 'rgba(251, 191, 36, 0.2)',
+              background: 'rgba(139, 92, 246, 0.1)',
+              borderColor: 'rgba(168, 85, 247, 0.2)',
             }}
           >
             <div className="flex items-center gap-3">
               <div 
                 className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                 style={{
-                  background: 'rgba(251, 191, 36, 0.2)',
-                  border: '1px solid rgba(251, 191, 36, 0.4)',
+                  background: 'rgba(139, 92, 246, 0.2)',
+                  border: '1px solid rgba(168, 85, 247, 0.4)',
                 }}
               >
-                <CreditCard className="h-5 w-5 text-amber-400" />
+                <CreditCard className="h-5 w-5 text-purple-300" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-black text-white">
@@ -221,8 +221,8 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                 <div 
                   className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded mt-1"
                   style={{
-                    background: 'rgba(251, 191, 36, 0.15)',
-                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                    background: 'rgba(139, 92, 246, 0.15)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
                   }}
                 >
                   <span className="text-gray-300 text-xs font-semibold">Toplam:</span>
@@ -240,21 +240,21 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
             <div 
               className="rounded-lg p-3 border"
               style={{
-                background: 'rgba(251, 191, 36, 0.1)',
-                border: '1px solid rgba(251, 191, 36, 0.2)',
+                background: 'rgba(139, 92, 246, 0.1)',
+                border: '1px solid rgba(168, 85, 247, 0.2)',
               }}
             >
               <div className="flex items-start gap-2">
-                <AlertCircle className="h-4 w-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="h-4 w-4 text-purple-300 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <h4 className="text-white font-bold text-xs mb-1.5">Ödeme Talimatları</h4>
                   <div className="space-y-1">
                     <div className="flex items-start gap-1.5">
-                      <div className="w-1 h-1 bg-amber-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="w-1 h-1 bg-purple-300 rounded-full mt-1.5 flex-shrink-0"></div>
                       <p className="text-gray-300 text-xs leading-tight">Banka hesabına ödeme yapın</p>
                     </div>
                     <div className="flex items-start gap-1.5">
-                      <div className="w-1 h-1 bg-amber-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                      <div className="w-1 h-1 bg-purple-300 rounded-full mt-1.5 flex-shrink-0"></div>
                       <p className="text-gray-300 text-xs leading-tight">Ödeme sonrası butona basın</p>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
             {isLoadingCheckout ? (
               <div className="flex items-center justify-center py-6">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-6 h-6 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-6 h-6 border-2 border-purple-300 border-t-transparent rounded-full animate-spin"></div>
                   <span className="text-gray-400 text-xs">Yükleniyor...</span>
                 </div>
               </div>
@@ -282,11 +282,11 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                 className="rounded-lg border p-3"
                 style={{
                   background: 'rgba(0, 0, 0, 0.5)',
-                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
                 }}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <Banknote className="h-4 w-4 text-amber-400" />
+                  <Banknote className="h-4 w-4 text-purple-300" />
                   <h4 className="text-white font-bold text-sm">Banka Hesabı</h4>
                   <CheckCircle className="h-3 w-3 text-green-400 ml-auto" />
                 </div>
@@ -299,8 +299,8 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                       <div 
                         className="flex-1 p-2 rounded-lg border"
                         style={{
-                          background: 'rgba(251, 191, 36, 0.1)',
-                          border: '1px solid rgba(251, 191, 36, 0.2)',
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
                         }}
                       >
                         <p className="text-white font-bold text-xs">
@@ -313,12 +313,12 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                         onClick={handleCopyBankName}
                         className="p-2 rounded-lg transition-all"
                         style={{
-                          background: 'rgba(251, 191, 36, 0.2)',
-                          border: '1px solid rgba(251, 191, 36, 0.3)',
+                          background: 'rgba(139, 92, 246, 0.2)',
+                          border: '1px solid rgba(168, 85, 247, 0.3)',
                         }}
                         title="Kopyala"
                       >
-                        <Copy className="h-3.5 w-3.5 text-amber-400" />
+                        <Copy className="h-3.5 w-3.5 text-purple-300" />
                       </motion.button>
                     </div>
                   </div>
@@ -330,8 +330,8 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                       <div 
                         className="flex-1 p-2 rounded-lg border font-mono text-xs"
                         style={{
-                          background: 'rgba(251, 191, 36, 0.1)',
-                          border: '1px solid rgba(251, 191, 36, 0.2)',
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
                         }}
                       >
                         <p className="text-white font-semibold break-all leading-tight">
@@ -344,12 +344,12 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                         onClick={handleCopyIBAN}
                         className="p-2 rounded-lg transition-all"
                         style={{
-                          background: 'rgba(251, 191, 36, 0.2)',
-                          border: '1px solid rgba(251, 191, 36, 0.3)',
+                          background: 'rgba(139, 92, 246, 0.2)',
+                          border: '1px solid rgba(168, 85, 247, 0.3)',
                         }}
                         title="Kopyala"
                       >
-                        <Copy className="h-3.5 w-3.5 text-amber-400" />
+                        <Copy className="h-3.5 w-3.5 text-purple-300" />
                       </motion.button>
                     </div>
                   </div>
@@ -358,12 +358,12 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                   <div 
                     className="p-2.5 rounded-lg border"
                     style={{
-                      background: 'rgba(251, 191, 36, 0.15)',
-                      border: '1px solid rgba(251, 191, 36, 0.3)',
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
                     }}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-amber-300 text-xs font-semibold">Ödeme Tutarı</span>
+                      <span className="text-purple-300 text-xs font-semibold">Ödeme Tutarı</span>
                       <span className="text-white text-lg font-black">{checkoutData.amount}</span>
                     </div>
                   </div>
@@ -373,8 +373,8 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
                     <div 
                       className="p-2 rounded-lg border"
                       style={{
-                        background: 'rgba(251, 191, 36, 0.1)',
-                        border: '1px solid rgba(251, 191, 36, 0.2)',
+                        background: 'rgba(139, 92, 246, 0.1)',
+                        border: '1px solid rgba(168, 85, 247, 0.2)',
                       }}
                     >
                       <p className="text-gray-300 text-xs leading-tight">
@@ -392,7 +392,7 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
               whileTap={{ scale: 0.98 }}
               onClick={handleConfirmPayment}
               disabled={isProcessing || !checkoutData || isLoadingCheckout}
-              className="w-full font-bold text-black py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)] disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              className="w-full font-bold text-black py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)] disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {isProcessing ? (
                 <>
@@ -420,7 +420,7 @@ const CheckoutModal = ({ isOpen, onClose, totalAmount }: CheckoutModalProps) => 
 
             {/* Security Info - Compact */}
             <div className="flex items-center justify-center gap-1.5 pt-2">
-              <Shield className="h-3 w-3 text-amber-400" />
+              <Shield className="h-3 w-3 text-purple-300" />
               <span className="text-gray-400 text-xs">Güvenli ödeme garantisi</span>
             </div>
           </div>

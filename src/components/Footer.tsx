@@ -5,40 +5,42 @@ const Footer = () => {
   const { websiteData, getInfoValue } = useWebsite();
 
   return (
-    <footer className="relative py-10 mt-20">
+    <footer className="relative py-8 mt-12">
       <div className="px-4 sm:px-6 lg:px-8">
         <div 
-          className="rounded-xl border p-8"
+          className="rounded-2xl border p-6"
           style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            border: '1px solid rgba(75, 85, 99, 0.2)',
+            background: 'rgba(0, 0, 0, 0.6)',
+            border: '1px solid rgba(168, 85, 247, 0.2)',
             boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
             backdropFilter: 'blur(12px)',
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Column 1 - Brand Info */}
-            <div className="space-y-6">
+            <div className="space-y-4">
               <div>
-                <h2 className="text-2xl font-black text-white mb-2">
-                  {getInfoValue('TITLE')}
+                <h2 className="text-xl font-black text-white mb-2">
+                  <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+                    {getInfoValue('TITLE')}
+                  </span>
                 </h2>
                 <div 
-                  className="w-12 h-1 rounded-full"
+                  className="w-10 h-0.5 rounded-full"
                   style={{
-                    background: 'linear-gradient(90deg, rgba(251, 191, 36, 0.8), rgba(251, 191, 36, 0.4))'
+                    background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.8), rgba(168, 85, 247, 0.4))'
                   }}
                 ></div>
               </div>
-              <div className="space-y-3">
-                <p className="text-gray-400 text-sm">
+              <div className="space-y-2">
+                <p className="text-gray-400 text-xs">
                   Copyright © {new Date().getFullYear()}
                 </p>
                
                 <a 
                   href="https://maxiipins.com/" 
-                  className="text-gray-300 text-sm font-medium hover:text-amber-400 transition-colors"
+                  className="text-gray-300 text-xs font-medium hover:text-purple-300 transition-colors"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -48,16 +50,18 @@ const Footer = () => {
             </div>
 
             {/* Column 2 - Sözleşmeler */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white">
-                Sözleşmeler
+            <div className="space-y-3">
+              <h3 className="text-base font-bold text-white">
+                <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+                  Sözleşmeler
+                </span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {websiteData?.contracts?.map((contract) => (
                   <li key={contract.id}>
                     <Link
                       to={`/sozlesme/${contract.slug}`}
-                      className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                      className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                     >
                       {contract.name}
                     </Link>
@@ -67,15 +71,17 @@ const Footer = () => {
             </div>
 
             {/* Column 3 - Müşteri Hizmetleri */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white">
-                Müşteri Hizmetleri
+            <div className="space-y-3">
+              <h3 className="text-base font-bold text-white">
+                <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+                  Müşteri Hizmetleri
+                </span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 <li>
                   <Link
                     to="/iletisim"
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                    className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                   >
                     İletişim & Ulaşım
                   </Link>
@@ -83,7 +89,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/banka-hesaplari"
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                    className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                   >
                     Banka Hesapları
                   </Link>
@@ -92,15 +98,17 @@ const Footer = () => {
             </div>
 
             {/* Column 4 - Satış Hizmetleri */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white">
-                Satış Hizmetleri
+            <div className="space-y-3">
+              <h3 className="text-base font-bold text-white">
+                <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+                  Satış Hizmetleri
+                </span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 <li>
                   <Link
                     to="/toplu-satin-alim"
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                    className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                   >
                     Toplu Satın Alım
                   </Link>
@@ -108,7 +116,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/geri-iade"
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                    className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                   >
                     Geri İade
                   </Link>
@@ -116,7 +124,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to="/canli-destek"
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm block"
+                    className="text-gray-400 hover:text-purple-300 transition-colors text-xs block"
                   >
                     Canlı Destek
                   </Link>

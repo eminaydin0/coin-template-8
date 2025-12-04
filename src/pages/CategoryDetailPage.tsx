@@ -111,14 +111,14 @@ const CategoryDetailPage = () => {
             backdropFilter: 'blur(12px)',
           }}
         >
-          <Gamepad2 className="h-12 w-12 text-amber-300/50 mx-auto mb-4" />
+          <Gamepad2 className="h-12 w-12 text-purple-300/50 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-white mb-3">
             Kategori Bulunamadı
           </h2>
           <p className="text-gray-400 mb-6">Aradığınız kategori arayüzde mevcut değil.</p>
           <Link 
             to="/oyunlar" 
-            className="group inline-flex items-center px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
+            className="group inline-flex items-center px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             <span>Kategoriler Sayfasına Dön</span>
@@ -135,80 +135,96 @@ const CategoryDetailPage = () => {
       <CommonBackground />
       
       <div className="w-full relative z-10">
-        {/* Başlık Section - Compact */}
-        <section className="relative py-10 mb-6 border-b" style={{ borderColor: 'rgba(251, 191, 36, 0.3)' }}>
-          <div className="px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              {/* Left: Breadcrumb */}
-              <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
+        {/* Header Section - CategoriesPage Stili */}
+        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+              {/* Breadcrumb */}
+              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
                 <Link 
                   to="/" 
-                  className="flex items-center gap-1.5 text-gray-400 hover:text-amber-400 transition-colors"
+                  className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
                 >
-                  <Home className="h-4 w-4" />
+                  <Home className="h-3.5 w-3.5" />
                   <span>Ana Sayfa</span>
                 </Link>
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                 <Link 
                   to="/oyunlar" 
-                  className="text-gray-400 hover:text-amber-400 transition-colors"
+                  className="text-gray-400 hover:text-purple-300 transition-colors"
                 >
                   Kategoriler
                 </Link>
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                 <span className="text-gray-300 font-medium">{category.name}</span>
               </div>
 
-              {/* Right: Badge */}
-              <div className="flex items-center justify-center sm:justify-end gap-2">
-                <Tag className="w-4 h-4 text-amber-400" />
-                <span
-                  className="text-xs font-bold px-3 py-1.5 rounded-full"
-                style={{
-                    background: 'rgba(251, 191, 36, 0.2)',
-                    border: '1px solid rgba(251, 191, 36, 0.4)',
-                    color: 'rgba(251, 191, 36, 0.95)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  {products.length} ÜRÜN {products.length > itemsPerPage && `• Sayfa ${currentPage}/${totalPages}`}
-                </span>
+              {/* Title Section */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-7 h-7 rounded-lg flex items-center justify-center"
+                    style={{
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                    }}
+                  >
+                    <Tag className="h-4 w-4 text-purple-300" />
+                  </div>
+                  <h1 className="text-xl sm:text-2xl font-bold text-white">
+                    <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                      {category.name}
+                    </span>
+                  </h1>
+                </div>
+
+                {/* Badge */}
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                    style={{
+                      background: 'rgba(139, 92, 246, 0.15)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                      color: 'rgba(168, 85, 247, 0.95)',
+                      backdropFilter: 'blur(8px)',
+                    }}
+                  >
+                    {products.length} ÜRÜN {products.length > itemsPerPage && `• Sayfa ${currentPage}/${totalPages}`}
+                  </span>
+                </div>
               </div>
             </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-3xl font-black text-white">
-              {category.name}
-            </h1>
           </div>
-        </section>
+        </div>
 
         {/* Products Grid */}
         <section className="relative py-8">
           <div className="px-4 sm:px-6 lg:px-8">
-            {products.length === 0 ? (
-              <div 
-                className="text-center py-20 rounded-xl border"
-                style={{
-                  background: 'rgba(0, 0, 0, 0.7)',
-                  border: '1px solid rgba(75, 85, 99, 0.2)',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                  backdropFilter: 'blur(12px)',
-                }}
-              >
-                <Gamepad2 className="h-16 w-16 text-amber-300/50 mx-auto mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  Bu kategoride ürün bulunmamaktadır
-              </h3>
-                <p className="text-gray-400 text-base">Yakında yeni ürünler eklenecektir.</p>
+            <div className="max-w-7xl mx-auto">
+              {products.length === 0 ? (
+                <div 
+                  className="text-center py-20 rounded-xl border"
+                  style={{
+                    background: 'rgba(0, 0, 0, 0.7)',
+                    border: '1px solid rgba(75, 85, 99, 0.2)',
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                    backdropFilter: 'blur(12px)',
+                  }}
+                >
+                  <Gamepad2 className="h-16 w-16 text-purple-300/50 mx-auto mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Bu kategoride ürün bulunmamaktadır
+                  </h3>
+                  <p className="text-gray-400 text-base">Yakında yeni ürünler eklenecektir.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+                  {currentProducts.map((product, index) => (
+                    <ProductCard key={product.id} product={product} index={index} />
+                  ))}
+                </div>
+              )}
             </div>
-          ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-              {currentProducts.map((product, index) => (
-                  <ProductCard key={product.id} product={product} index={index} />
-              ))}
-            </div>
-          )}
           </div>
         </section>
 
@@ -216,7 +232,8 @@ const CategoryDetailPage = () => {
         {products.length > itemsPerPage && (
           <section className="relative py-8">
             <div className="px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-center">
+              <div className="max-w-7xl mx-auto">
+                <div className="flex justify-center">
                 <div 
                   className="flex items-center gap-2 rounded-xl border p-4"
                   style={{
@@ -234,12 +251,12 @@ const CategoryDetailPage = () => {
                     style={{
                       background: currentPage === 1 
                         ? 'rgba(75, 85, 99, 0.3)'
-                        : 'rgba(251, 191, 36, 0.2)',
+                        : 'rgba(139, 92, 246, 0.2)',
                       border: currentPage === 1 
                         ? '1px solid rgba(75, 85, 99, 0.3)'
-                        : '1px solid rgba(251, 191, 36, 0.3)',
+                        : '1px solid rgba(168, 85, 247, 0.3)',
                     }}
-                    whileHover={currentPage !== 1 ? { scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' } : {}}
+                    whileHover={currentPage !== 1 ? { scale: 1.05, background: 'rgba(139, 92, 246, 0.3)' } : {}}
                     whileTap={currentPage !== 1 ? { scale: 0.95 } : {}}
                   >
                     <ChevronLeft className="h-4 w-4" />
@@ -255,10 +272,10 @@ const CategoryDetailPage = () => {
                           onClick={() => setCurrentPage(1)}
                           className="w-10 h-10 rounded-lg text-sm font-semibold text-white transition-all duration-300"
                           style={{
-                            background: 'rgba(251, 191, 36, 0.2)',
-                            border: '1px solid rgba(251, 191, 36, 0.3)',
+                            background: 'rgba(139, 92, 246, 0.2)',
+                            border: '1px solid rgba(168, 85, 247, 0.3)',
                           }}
-                          whileHover={{ scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' }}
+                          whileHover={{ scale: 1.05, background: 'rgba(139, 92, 246, 0.3)' }}
                           whileTap={{ scale: 0.95 }}
                         >
                           1
@@ -294,13 +311,13 @@ const CategoryDetailPage = () => {
                           className="w-10 h-10 rounded-lg text-sm font-semibold text-white transition-all duration-300"
                           style={{
                             background: isActive
-                              ? 'rgba(251, 191, 36, 0.4)'
-                              : 'rgba(251, 191, 36, 0.2)',
+                              ? 'rgba(139, 92, 246, 0.4)'
+                              : 'rgba(139, 92, 246, 0.2)',
                             border: isActive
-                              ? '1px solid rgba(251, 191, 36, 0.5)'
-                              : '1px solid rgba(251, 191, 36, 0.3)',
+                              ? '1px solid rgba(168, 85, 247, 0.5)'
+                              : '1px solid rgba(168, 85, 247, 0.3)',
                           }}
-                          whileHover={{ scale: 1.05, background: isActive ? 'rgba(251, 191, 36, 0.5)' : 'rgba(251, 191, 36, 0.3)' }}
+                          whileHover={{ scale: 1.05, background: isActive ? 'rgba(139, 92, 246, 0.5)' : 'rgba(139, 92, 246, 0.3)' }}
                           whileTap={{ scale: 0.95 }}
                         >
                           {pageNum}
@@ -320,10 +337,10 @@ const CategoryDetailPage = () => {
                           onClick={() => setCurrentPage(totalPages)}
                           className="w-10 h-10 rounded-lg text-sm font-semibold text-white transition-all duration-300"
                           style={{
-                            background: 'rgba(251, 191, 36, 0.2)',
-                            border: '1px solid rgba(251, 191, 36, 0.3)',
+                            background: 'rgba(139, 92, 246, 0.2)',
+                            border: '1px solid rgba(168, 85, 247, 0.3)',
                           }}
-                          whileHover={{ scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' }}
+                          whileHover={{ scale: 1.05, background: 'rgba(139, 92, 246, 0.3)' }}
                           whileTap={{ scale: 0.95 }}
                         >
                           {totalPages}
@@ -340,17 +357,18 @@ const CategoryDetailPage = () => {
                     style={{
                       background: currentPage === totalPages 
                         ? 'rgba(75, 85, 99, 0.3)'
-                        : 'rgba(251, 191, 36, 0.2)',
+                        : 'rgba(139, 92, 246, 0.2)',
                       border: currentPage === totalPages 
                         ? '1px solid rgba(75, 85, 99, 0.3)'
-                        : '1px solid rgba(251, 191, 36, 0.3)',
+                        : '1px solid rgba(168, 85, 247, 0.3)',
                     }}
-                    whileHover={currentPage !== totalPages ? { scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' } : {}}
+                    whileHover={currentPage !== totalPages ? { scale: 1.05, background: 'rgba(139, 92, 246, 0.3)' } : {}}
                     whileTap={currentPage !== totalPages ? { scale: 0.95 } : {}}
                   >
                     <span>Sonraki</span>
                     <ChevronRight className="h-4 w-4" />
                   </motion.button>
+                </div>
                 </div>
               </div>
             </div>
@@ -388,10 +406,10 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
               ? 'rgba(0, 0, 0, 0.85)'
               : 'rgba(0, 0, 0, 0.7)',
             border: isHovered
-              ? '1px solid rgba(251, 191, 36, 0.4)'
+              ? '1px solid rgba(168, 85, 247, 0.4)'
               : '1px solid rgba(75, 85, 99, 0.2)',
             boxShadow: isHovered
-              ? '0 12px 32px rgba(251, 191, 36, 0.25), 0 4px 16px rgba(0,0,0,0.4)'
+              ? '0 12px 32px rgba(139, 92, 246, 0.25), 0 4px 16px rgba(0,0,0,0.4)'
               : '0 4px 16px rgba(0,0,0,0.3)',
             backdropFilter: 'blur(12px)',
           }}
@@ -407,8 +425,8 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                 loading="lazy"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center">
-                <Gamepad2 className="h-16 w-16 text-amber-300/50" />
+              <div className="w-full h-full bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center">
+                <Gamepad2 className="h-16 w-16 text-purple-300/50" />
               </div>
             )}
 
@@ -419,8 +437,8 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
               <div
                 className="absolute top-3 right-3 rounded-lg px-2.5 py-1.5 z-10"
                 style={{
-                  background: 'rgba(251, 191, 36, 0.25)',
-                  border: '1px solid rgba(251, 191, 36, 0.4)',
+                  background: 'rgba(139, 92, 246, 0.25)',
+                  border: '1px solid rgba(168, 85, 247, 0.4)',
                   backdropFilter: 'blur(8px)',
                 }}
               >
@@ -432,7 +450,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
           {/* Content */}
           <div className="p-4 flex-1 flex flex-col">
             {/* Title */}
-            <h3 className="text-white font-bold text-base mb-2 line-clamp-2 leading-tight group-hover:text-amber-300 transition-colors">
+            <h3 className="text-white font-bold text-base mb-2 line-clamp-2 leading-tight group-hover:text-purple-300 transition-colors">
               {product.name}
             </h3>
             
@@ -459,10 +477,10 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
                 <motion.div
                   className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white"
                   style={{
-                    background: 'rgba(251, 191, 36, 0.2)',
-                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                    background: 'rgba(139, 92, 246, 0.2)',
+                    border: '1px solid rgba(168, 85, 247, 0.3)',
                   }}
-                  whileHover={{ scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' }}
+                  whileHover={{ scale: 1.05, background: 'rgba(139, 92, 246, 0.3)' }}
                   whileTap={{ scale: 0.95 }}
                 >
                   İncele

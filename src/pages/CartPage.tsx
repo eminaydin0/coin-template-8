@@ -154,67 +154,99 @@ const CartPage = () => {
           <CommonBackground />
           
           <div className="w-full relative z-10">
-            {/* Başlık Section - Compact */}
-            <section className="relative py-10 mb-6 border-b" style={{ borderColor: 'rgba(251, 191, 36, 0.3)' }}>
-              <div className="px-4 sm:px-6 lg:px-8">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                  {/* Left: Breadcrumb */}
-                  <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
+            {/* Header Section - CategoriesPage Stili */}
+            <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
+              <div className="max-w-7xl mx-auto">
+                <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+                  {/* Breadcrumb */}
+                  <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
                     <Link 
                       to="/" 
-                      className="flex items-center gap-1.5 text-gray-400 hover:text-amber-400 transition-colors"
+                      className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
                     >
-                      <Home className="h-4 w-4" />
+                      <Home className="h-3.5 w-3.5" />
                       <span>Ana Sayfa</span>
                     </Link>
-                    <ChevronRight className="h-4 w-4 text-gray-600" />
+                    <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                     <span className="text-gray-300 font-medium">Sepetim</span>
                   </div>
-                </div>
 
-                {/* Title */}
-                <h1 className="text-2xl sm:text-3xl font-black text-white">
-                  Sepetim
-                </h1>
+                  {/* Title Section */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex items-center gap-2">
+                      <div 
+                        className="w-7 h-7 rounded-lg flex items-center justify-center"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.15)',
+                          border: '1px solid rgba(168, 85, 247, 0.3)',
+                        }}
+                      >
+                        <ShoppingCart className="h-4 w-4 text-purple-300" />
+                      </div>
+                      <h1 className="text-xl sm:text-2xl font-bold text-white">
+                        <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                          Sepetim
+                        </span>
+                      </h1>
+                    </div>
+
+                    {/* Badge */}
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.15)',
+                          border: '1px solid rgba(168, 85, 247, 0.3)',
+                          color: 'rgba(168, 85, 247, 0.95)',
+                          backdropFilter: 'blur(8px)',
+                        }}
+                      >
+                        {cart.length} ÜRÜN
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </section>
+            </div>
 
             {/* Not Authenticated Message */}
             <section className="relative py-8">
               <div className="px-4 sm:px-6 lg:px-8">
-                <div 
-                  className="text-center py-20 rounded-xl border"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    border: '1px solid rgba(75, 85, 99, 0.2)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  <ShoppingCart className="h-16 w-16 text-amber-300/50 mx-auto mb-6" />
-                  <h3 className="text-2xl font-bold text-white mb-3">
-                    Sepeti görüntülemek için giriş yapın
-                  </h3>
-                  <p className="text-gray-400 text-base mb-8">Hesabınıza giriş yaparak sepetinizi yönetebilirsiniz.</p>
-                  
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Link 
-                      to="/giris-yap" 
-                      className="inline-flex items-center justify-center px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
-                    >
-                      <span>GİRİŞ YAP</span>
-                    </Link>
+                <div className="max-w-7xl mx-auto">
+                  <div 
+                    className="text-center py-20 rounded-xl border"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.7)',
+                      border: '1px solid rgba(75, 85, 99, 0.2)',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <ShoppingCart className="h-16 w-16 text-purple-300/50 mx-auto mb-6" />
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Sepeti görüntülemek için giriş yapın
+                    </h3>
+                    <p className="text-gray-400 text-base mb-8">Hesabınıza giriş yaparak sepetinizi yönetebilirsiniz.</p>
                     
-                    <Link 
-                      to="/kayit-ol" 
-                      className="inline-flex items-center justify-center px-6 py-3 font-semibold text-white rounded-lg transition-all"
-                      style={{
-                        background: 'rgba(251, 191, 36, 0.2)',
-                        border: '1px solid rgba(251, 191, 36, 0.3)',
-                      }}
-                    >
-                      <span>KAYIT OL</span>
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <Link 
+                        to="/giris-yap" 
+                        className="inline-flex items-center justify-center px-6 py-3 font-bold text-black rounded-xl transition-all bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
+                      >
+                        <span>GİRİŞ YAP</span>
+                      </Link>
+                      
+                      <Link 
+                        to="/kayit-ol" 
+                        className="inline-flex items-center justify-center px-6 py-3 font-semibold text-white rounded-lg transition-all"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.2)',
+                          border: '1px solid rgba(168, 85, 247, 0.3)',
+                        }}
+                      >
+                        <span>KAYIT OL</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -251,83 +283,100 @@ const CartPage = () => {
         <CommonBackground />
         
         <div className="w-full relative z-10">
-          {/* Başlık Section - Compact */}
-          <section className="relative py-10 mb-6 border-b" style={{ borderColor: 'rgba(251, 191, 36, 0.3)' }}>
-            <div className="px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                {/* Left: Breadcrumb */}
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-sm">
+          {/* Header Section - CategoriesPage Stili */}
+          <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+              <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
+                {/* Breadcrumb */}
+                <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
                   <Link 
                     to="/" 
-                    className="flex items-center gap-1.5 text-gray-400 hover:text-amber-400 transition-colors"
+                    className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
                   >
-                    <Home className="h-4 w-4" />
+                    <Home className="h-3.5 w-3.5" />
                     <span>Ana Sayfa</span>
                   </Link>
-                  <ChevronRight className="h-4 w-4 text-gray-600" />
+                  <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
                   <span className="text-gray-300 font-medium">Sepetim</span>
                 </div>
 
-                {/* Right: Badge */}
-                <div className="flex items-center justify-center sm:justify-end gap-2">
-                  <ShoppingCart className="w-4 h-4 text-amber-400" />
-                  <span
-                    className="text-xs font-bold px-3 py-1.5 rounded-full"
-                    style={{
-                      background: 'rgba(251, 191, 36, 0.2)',
-                      border: '1px solid rgba(251, 191, 36, 0.4)',
-                      color: 'rgba(251, 191, 36, 0.95)',
-                      backdropFilter: 'blur(8px)',
-                    }}
-                  >
-                    {cart.length} ÜRÜN
-                  </span>
+                {/* Title Section */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="w-7 h-7 rounded-lg flex items-center justify-center"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.15)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                      }}
+                    >
+                      <ShoppingCart className="h-4 w-4 text-purple-300" />
+                    </div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-white">
+                      <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                        Sepetim
+                      </span>
+                    </h1>
+                  </div>
+
+                  {/* Badge */}
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.15)',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        color: 'rgba(168, 85, 247, 0.95)',
+                        backdropFilter: 'blur(8px)',
+                      }}
+                    >
+                      {cart.length} ÜRÜN
+                    </span>
+                  </div>
                 </div>
               </div>
-
-              {/* Title */}
-              <h1 className="text-2xl sm:text-3xl font-black text-white">
-                Sepetim
-              </h1>
             </div>
-          </section>
+          </div>
 
           {cart.length === 0 ? (
             <section className="relative py-8">
               <div className="px-4 sm:px-6 lg:px-8">
-                <div 
-                  className="text-center py-20 rounded-xl border"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    border: '1px solid rgba(75, 85, 99, 0.2)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  <ShoppingCart className="h-16 w-16 text-amber-300/50 mx-auto mb-6" />
-                  <h3 className="text-2xl font-bold text-white mb-3">
-                    Sepetiniz boş
-                  </h3>
-                  <p className="text-gray-400 text-base mb-8">
-                    Sepetinizde henüz ürün bulunmuyor. Hemen alışverişe başlayın!
-                  </p>
-                  
-                  <Link to="/oyunlar">
-                    <motion.div
-                      className="inline-flex items-center gap-3 font-bold text-black py-4 px-8 rounded-xl transition-all duration-300 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <ShoppingCart className="h-5 w-5" />
-                      <span>ALIŞVERİŞE BAŞLA</span>
-                    </motion.div>
-                  </Link>
+                <div className="max-w-7xl mx-auto">
+                  <div 
+                    className="text-center py-20 rounded-xl border"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.7)',
+                      border: '1px solid rgba(75, 85, 99, 0.2)',
+                      boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                  >
+                    <ShoppingCart className="h-16 w-16 text-purple-300/50 mx-auto mb-6" />
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Sepetiniz boş
+                    </h3>
+                    <p className="text-gray-400 text-base mb-8">
+                      Sepetinizde henüz ürün bulunmuyor. Hemen alışverişe başlayın!
+                    </p>
+                    
+                    <Link to="/oyunlar">
+                      <motion.div
+                        className="inline-flex items-center gap-3 font-bold text-black py-4 px-8 rounded-xl transition-all duration-300 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <ShoppingCart className="h-5 w-5" />
+                        <span>ALIŞVERİŞE BAŞLA</span>
+                      </motion.div>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </section>
           ) : (
             <section className="relative py-8">
               <div className="px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto">
               {/* Flex Layout for Cart Items and Order Summary */}
               <div className="flex flex-col xl:flex-row gap-6 relative z-10">
                 {/* Cart Items - Left Side */}
@@ -358,11 +407,11 @@ const CartPage = () => {
                             <div 
                               className="w-10 h-10 rounded-lg flex items-center justify-center"
                               style={{
-                                background: 'rgba(251, 191, 36, 0.2)',
-                                border: '1px solid rgba(251, 191, 36, 0.3)',
+                                background: 'rgba(139, 92, 246, 0.2)',
+                                border: '1px solid rgba(168, 85, 247, 0.3)',
                               }}
                             >
-                              <ShoppingCart className="h-5 w-5 text-amber-400" />
+                              <ShoppingCart className="h-5 w-5 text-purple-300" />
                             </div>
                             
                             <div>
@@ -417,8 +466,8 @@ const CartPage = () => {
                           }}
                           whileHover={{ 
                             y: -2,
-                            border: '1px solid rgba(251, 191, 36, 0.4)',
-                            boxShadow: '0 8px 24px rgba(251, 191, 36, 0.2), 0 4px 12px rgba(0,0,0,0.3)',
+                            border: '1px solid rgba(168, 85, 247, 0.4)',
+                            boxShadow: '0 8px 24px rgba(139, 92, 246, 0.2), 0 4px 12px rgba(0,0,0,0.3)',
                           }}
                         >
                           <div className="flex items-center gap-3">
@@ -438,8 +487,8 @@ const CartPage = () => {
                                     }}
                                   />
                                 ) : null}
-                                <div className="w-full h-full bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center" style={{ display: item.url ? 'none' : 'flex' }}>
-                                  <Gamepad2 className="h-8 w-8 text-amber-300/50" />
+                                <div className="w-full h-full bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center" style={{ display: item.url ? 'none' : 'flex' }}>
+                                  <Gamepad2 className="h-8 w-8 text-purple-300/50" />
                                 </div>
                               </div>
                             </div>
@@ -447,7 +496,7 @@ const CartPage = () => {
                             {/* Product Info & Price */}
                             <div className="flex-1 flex items-center justify-between gap-4">
                               <div className="flex-1 min-w-0">
-                                <h3 className="text-white font-semibold text-sm line-clamp-2 leading-tight group-hover:text-amber-300 transition-colors mb-1">
+                                <h3 className="text-white font-semibold text-sm line-clamp-2 leading-tight group-hover:text-purple-300 transition-colors mb-1">
                                   {item.name}
                                 </h3>
                                 <p className="text-gray-400 text-xs">
@@ -470,17 +519,17 @@ const CartPage = () => {
                                   disabled={updatingItem === item.basketId || item.piece <= 1}
                                   className="w-7 h-7 rounded-l-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center"
                                   style={{
-                                    background: 'rgba(251, 191, 36, 0.2)',
+                                    background: 'rgba(139, 92, 246, 0.2)',
                                     border: 'none',
                                   }}
-                                  whileHover={{ background: 'rgba(251, 191, 36, 0.3)' }}
+                                  whileHover={{ background: 'rgba(139, 92, 246, 0.3)' }}
                                   whileTap={{ scale: 0.9 }}
                                 >
-                                  <Minus className="h-3.5 w-3.5 text-amber-400" />
+                                  <Minus className="h-3.5 w-3.5 text-purple-300" />
                                 </motion.button>
                                 <span className="w-8 text-center text-white font-bold text-xs px-1">
                                   {updatingItem === item.basketId ? (
-                                    <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-amber-400 mx-auto"></div>
+                                    <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-purple-300 mx-auto"></div>
                                   ) : (
                                     item.piece
                                   )}
@@ -490,13 +539,13 @@ const CartPage = () => {
                                   disabled={updatingItem === item.basketId}
                                   className="w-7 h-7 rounded-r-lg disabled:opacity-50 transition-all duration-300 flex items-center justify-center"
                                   style={{
-                                    background: 'rgba(251, 191, 36, 0.2)',
+                                    background: 'rgba(139, 92, 246, 0.2)',
                                     border: 'none',
                                   }}
-                                  whileHover={{ background: 'rgba(251, 191, 36, 0.3)' }}
+                                  whileHover={{ background: 'rgba(139, 92, 246, 0.3)' }}
                                   whileTap={{ scale: 0.9 }}
                                 >
-                                  <Plus className="h-3.5 w-3.5 text-amber-400" />
+                                  <Plus className="h-3.5 w-3.5 text-purple-300" />
                                 </motion.button>
                               </div>
                               
@@ -539,8 +588,8 @@ const CartPage = () => {
                     className="relative rounded-xl border overflow-hidden"
                     style={{
                       background: 'rgba(0, 0, 0, 0.75)',
-                      border: '1px solid rgba(251, 191, 36, 0.3)',
-                      boxShadow: '0 8px 32px rgba(251, 191, 36, 0.15), 0 4px 16px rgba(0,0,0,0.4)',
+                      border: '1px solid rgba(168, 85, 247, 0.3)',
+                      boxShadow: '0 8px 32px rgba(139, 92, 246, 0.15), 0 4px 16px rgba(0,0,0,0.4)',
                       backdropFilter: 'blur(16px)',
                     }}
                   >
@@ -548,23 +597,23 @@ const CartPage = () => {
                     <div 
                       className="p-5 border-b"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05))',
-                        borderColor: 'rgba(251, 191, 36, 0.2)',
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05))',
+                        borderColor: 'rgba(168, 85, 247, 0.2)',
                       }}
                     >
                       <div className="flex items-center gap-3">
                         <div 
                           className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                           style={{
-                            background: 'rgba(251, 191, 36, 0.25)',
-                            border: '1px solid rgba(251, 191, 36, 0.4)',
+                            background: 'rgba(139, 92, 246, 0.25)',
+                            border: '1px solid rgba(168, 85, 247, 0.4)',
                           }}
                         >
-                          <Package className="h-5 w-5 text-amber-300" />
+                          <Package className="h-5 w-5 text-purple-300" />
                         </div>
                         <div>
                           <h3 className="text-white font-bold text-lg">Sipariş Özeti</h3>
-                          <p className="text-amber-300/80 text-xs mt-0.5">{cart.length} ürün • {getTotalQuantity()} adet</p>
+                          <p className="text-purple-300/80 text-xs mt-0.5">{cart.length} ürün • {getTotalQuantity()} adet</p>
                         </div>
                       </div>
                     </div>
@@ -590,12 +639,12 @@ const CartPage = () => {
                       <div 
                         className="rounded-lg p-4"
                         style={{
-                          background: 'rgba(251, 191, 36, 0.1)',
-                          border: '1px solid rgba(251, 191, 36, 0.2)',
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
                         }}
                       >
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-amber-300 font-bold text-sm">Genel Toplam</span>
+                          <span className="text-purple-300 font-bold text-sm">Genel Toplam</span>
                           <span className="text-2xl font-black text-white">{getTotal()}</span>
                         </div>
                         <p className="text-gray-400 text-xs text-right">KDV Dahil</p>
@@ -604,7 +653,7 @@ const CartPage = () => {
                       {/* Checkout Button */}
                       <motion.button
                         onClick={handleCheckout}
-                        className="w-full font-bold text-black py-3.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)]"
+                        className="w-full font-bold text-black py-3.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-400 via-purple-300 to-purple-400 shadow-[0_0_30px_rgba(139,92,246,0.5)] hover:shadow-[0_0_50px_rgba(139,92,246,0.7)]"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -618,22 +667,23 @@ const CartPage = () => {
                     <div 
                       className="p-4 border-t space-y-2"
                       style={{
-                        background: 'rgba(251, 191, 36, 0.05)',
-                        borderColor: 'rgba(251, 191, 36, 0.15)',
+                        background: 'rgba(139, 92, 246, 0.05)',
+                        borderColor: 'rgba(168, 85, 247, 0.15)',
                       }}
                     >
                       <div className="flex items-center gap-2 text-xs text-gray-400">
-                        <Shield className="h-4 w-4 text-amber-400 flex-shrink-0" />
+                        <Shield className="h-4 w-4 text-purple-300 flex-shrink-0" />
                         <span>Güvenli Ödeme</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-gray-400">
-                        <Package className="h-4 w-4 text-amber-400 flex-shrink-0" />
+                        <Package className="h-4 w-4 text-purple-300 flex-shrink-0" />
                         <span>Anında Teslimat</span>
                       </div>
                     </div>
                   </div>
                 </motion.div>
-              </div>
+                </div>
+                </div>
               </div>
             </section>
           )}

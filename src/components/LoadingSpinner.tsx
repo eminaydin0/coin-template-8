@@ -15,7 +15,7 @@ const LoadingSpinner = ({
   size = 'lg', 
   text = 'Yükleniyor...', 
   variant = 'gaming',
-  color = 'amber',
+  color = 'purple',
   className = '',
   showBackground = false
 }: LoadingSpinnerProps) => {
@@ -43,11 +43,23 @@ const LoadingSpinner = ({
     xl: 'w-8 h-8'
   };
 
+  // Color mapping
+  const colorClasses = {
+    blue: { border: 'border-blue-300', icon: 'text-blue-300', dot: 'bg-blue-300/60', style: { borderColor: 'rgba(59, 130, 246, 0.2)', borderTopColor: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' } },
+    red: { border: 'border-red-300', icon: 'text-red-300', dot: 'bg-red-300/60', style: { borderColor: 'rgba(239, 68, 68, 0.2)', borderTopColor: 'rgba(239, 68, 68, 0.8)', boxShadow: '0 0 20px rgba(239, 68, 68, 0.3)' } },
+    green: { border: 'border-green-300', icon: 'text-green-300', dot: 'bg-green-300/60', style: { borderColor: 'rgba(34, 197, 94, 0.2)', borderTopColor: 'rgba(34, 197, 94, 0.8)', boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)' } },
+    yellow: { border: 'border-yellow-300', icon: 'text-yellow-300', dot: 'bg-yellow-300/60', style: { borderColor: 'rgba(234, 179, 8, 0.2)', borderTopColor: 'rgba(234, 179, 8, 0.8)', boxShadow: '0 0 20px rgba(234, 179, 8, 0.3)' } },
+    purple: { border: 'border-purple-300', icon: 'text-purple-300', dot: 'bg-purple-300/60', style: { borderColor: 'rgba(139, 92, 246, 0.2)', borderTopColor: 'rgba(168, 85, 247, 0.8)', boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' } },
+    amber: { border: 'border-amber-300', icon: 'text-amber-300', dot: 'bg-amber-300/60', style: { borderColor: 'rgba(251, 191, 36, 0.2)', borderTopColor: 'rgba(251, 191, 36, 0.8)', boxShadow: '0 0 20px rgba(251, 191, 36, 0.3)' } }
+  };
+
+  const selectedColor = colorClasses[color] || colorClasses.purple;
+
   // Inline variant - just the spinner without container
   if (variant === 'inline') {
     return (
       <motion.div
-        className={`${sizeClasses[size]} border-2 border-gray-600 border-t-amber-400 rounded-full ${className}`}
+        className={`${sizeClasses[size]} border-2 border-gray-600 ${selectedColor.border.replace('border-', 'border-t-')} rounded-full ${className}`}
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         role="status"
@@ -61,7 +73,7 @@ const LoadingSpinner = ({
     return (
       <div className={`flex items-center gap-2 ${className}`}>
         <motion.div
-          className={`${sizeClasses[size]} border-2 border-gray-600 border-t-amber-400 rounded-full`}
+          className={`${sizeClasses[size]} border-2 border-gray-600 ${selectedColor.border.replace('border-', 'border-t-')} rounded-full`}
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           role="status"
@@ -80,7 +92,7 @@ const LoadingSpinner = ({
     return (
       <div className={`flex flex-col items-center justify-center space-y-4 ${className}`}>
         <motion.div
-          className={`${sizeClasses[size]} border-4 border-gray-600 border-t-amber-400 rounded-full`}
+          className={`${sizeClasses[size]} border-4 border-gray-600 ${selectedColor.border.replace('border-', 'border-t-')} rounded-full`}
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           role="status"
@@ -108,18 +120,14 @@ const LoadingSpinner = ({
           {/* Main Spinner Ring */}
           <motion.div
             className={`${sizeClasses[size]} border-4 rounded-full relative`}
-            style={{
-              borderColor: 'rgba(251, 191, 36, 0.2)',
-              borderTopColor: 'rgba(251, 191, 36, 0.8)',
-              boxShadow: '0 0 20px rgba(251, 191, 36, 0.3)'
-            }}
+            style={selectedColor.style}
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           />
           
           {/* Center Icon */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-            <Loader2 className={`${iconSizes[size]} text-amber-400`} />
+            <Loader2 className={`${iconSizes[size]} ${selectedColor.icon}`} />
           </div>
         </div>
 
@@ -139,7 +147,7 @@ const LoadingSpinner = ({
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 rounded-full bg-amber-400/60"
+                className={`w-2 h-2 rounded-full ${selectedColor.dot}`}
                 animate={{ 
                   scale: [1, 1.2, 1],
                   opacity: [0.4, 1, 0.4]
@@ -211,7 +219,7 @@ const LoadingSpinner = ({
             {[0, 1, 2].map((i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 rounded-full bg-amber-400/60"
+                className={`w-2 h-2 rounded-full ${selectedColor.dot}`}
                 animate={{ 
                   scale: [1, 1.2, 1],
                   opacity: [0.4, 1, 0.4]

@@ -27,51 +27,40 @@ const MoreGamesSection = ({ homepageItems }: MoreGamesSectionProps) => {
   }
 
   return (
-    <section className="relative py-10">
-      <div className="px-4 sm:px-6 lg:px-8">
-        {/* Başlık */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <Sparkles className="w-5 h-5 text-amber-400" />
-            <span
-              className="text-xs font-bold px-3 py-1.5 rounded-full"
-              style={{
-                background: 'rgba(251, 191, 36, 0.2)',
-                border: '1px solid rgba(251, 191, 36, 0.4)',
-                color: 'rgba(251, 191, 36, 0.95)',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              DAHA FAZLA OYUN
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
-            Daha Fazla Oyun
-          </h2>
-          <p className="text-amber-300/90 text-sm max-w-xl mx-auto">
-            Keşfetmeye devam edin.
-          </p>
-        </div>
-
-        {/* Games Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 mb-8">
-          {moreGames.map((item, index) => (
-            <MoreGameCard key={item.id} item={item} index={index} />
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-8">
-          <Link
-            to="/oyunlar"
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-black bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 shadow-[0_0_30px_rgba(251,191,36,0.5)] hover:shadow-[0_0_50px_rgba(251,191,36,0.7)] transition-all"
+    <div className="flex flex-col">
+      {/* Compact Header */}
+      <motion.div 
+        className="mb-5"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <div 
+            className="w-7 h-7 rounded-lg flex items-center justify-center"
+            style={{
+              background: 'rgba(139, 92, 246, 0.15)',
+              border: '1px solid rgba(168, 85, 247, 0.3)',
+            }}
           >
-            <span>Tüm Oyunları Gör</span>
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
-          </Link>
+            <Sparkles className="h-4 w-4 text-purple-300" />
+          </div>
+          <h3 className="text-xl font-bold text-white">
+            <span className="bg-gradient-to-r from-purple-300 to-purple-300 bg-clip-text text-transparent">
+              Daha Fazla Oyun
+            </span>
+          </h3>
         </div>
+        <p className="text-gray-400 text-xs ml-9">Geniş oyun koleksiyonumuz</p>
+      </motion.div>
+
+      {/* Games Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {moreGames.map((item, index) => (
+          <MoreGameCard key={item.id} item={item} index={index} />
+        ))}
       </div>
-    </section>
+    </div>
   );
 };
 
@@ -96,29 +85,44 @@ const MoreGameCard = ({ item, index }: { item: HomepageItem; index: number }) =>
           className="relative rounded-xl border overflow-hidden transition-all duration-300 h-full flex flex-col"
           style={{
             background: isHovered
-              ? 'rgba(0, 0, 0, 0.85)'
-              : 'rgba(0, 0, 0, 0.7)',
+              ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.05))'
+              : 'rgba(0, 0, 0, 0.6)',
             border: isHovered
-              ? '1px solid rgba(251, 191, 36, 0.4)'
-              : '1px solid rgba(75, 85, 99, 0.2)',
+              ? '1.5px solid rgba(168, 85, 247, 0.5)'
+              : '1px solid rgba(168, 85, 247, 0.2)',
             boxShadow: isHovered
-              ? '0 12px 32px rgba(251, 191, 36, 0.25), 0 4px 16px rgba(0,0,0,0.4)'
-              : '0 4px 16px rgba(0,0,0,0.3)',
+              ? '0 8px 24px rgba(139, 92, 246, 0.25), 0 0 40px rgba(139, 92, 246, 0.1)'
+              : '0 2px 8px rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(12px)',
           }}
         >
+          {/* Shine Effect */}
+          {isHovered && (
+            <motion.div
+              className="absolute inset-0 z-10"
+              initial={{ x: '-100%' }}
+              animate={{ x: '100%' }}
+              transition={{ duration: 0.6 }}
+              style={{
+                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
+              }}
+            />
+          )}
+
           {/* Image */}
-          <div className="relative h-44 overflow-hidden">
+          <div className="relative h-32 overflow-hidden">
             {item.url && !imageError ? (
-              <img
+              <motion.img
                 src={item.url}
                 alt={item.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover"
                 onError={() => setImageError(true)}
+                animate={{ scale: isHovered ? 1.1 : 1 }}
+                transition={{ duration: 0.3 }}
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-amber-500/20 to-amber-600/10 flex items-center justify-center">
-                <Gamepad2 className="h-12 w-12 text-amber-300/50" />
+              <div className="w-full h-full bg-gradient-to-br from-purple-500/30 to-purple-600/20 flex items-center justify-center">
+                <Gamepad2 className="h-10 w-10 text-purple-300" />
               </div>
             )}
 
@@ -126,66 +130,53 @@ const MoreGameCard = ({ item, index }: { item: HomepageItem; index: number }) =>
           </div>
 
           {/* Content */}
-          <div className="p-4 flex-1 flex flex-col">
+          <div className="p-3 flex-1 flex flex-col">
             {/* Category & People */}
             {item.categoryName && (
-              <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center justify-between mb-1.5">
                 <span
-                  className="text-xs font-medium px-2.5 py-1 rounded-lg"
+                  className="text-[10px] font-medium px-2 py-0.5 rounded"
                   style={{
-                    background: 'rgba(251, 191, 36, 0.15)',
-                    border: '1px solid rgba(251, 191, 36, 0.25)',
-                    color: 'rgba(251, 191, 36, 0.9)',
+                    background: 'rgba(139, 92, 246, 0.15)',
+                    border: '1px solid rgba(168, 85, 247, 0.25)',
+                    color: 'rgba(168, 85, 247, 0.9)',
                   }}
                 >
                   {item.categoryName}
                 </span>
                 {item.people !== undefined && item.people > 0 && (
-                  <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                    <Users className="h-3.5 w-3.5" />
+                  <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                    <Users className="h-3 w-3" />
                     <span>{item.people}</span>
                   </div>
                 )}
               </div>
             )}
             {!item.categoryName && item.people !== undefined && item.people > 0 && (
-              <div className="flex items-center justify-end mb-2">
-                <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <Users className="h-3.5 w-3.5" />
+              <div className="flex items-center justify-end mb-1.5">
+                <div className="flex items-center gap-1 text-[10px] text-gray-400">
+                  <Users className="h-3 w-3" />
                   <span>{item.people}</span>
                 </div>
               </div>
             )}
 
             {/* Title */}
-            <h3 className="text-white font-bold text-base mb-2 line-clamp-2 leading-tight group-hover:text-amber-300 transition-colors">
+            <h3 className="text-white font-bold text-xs mb-2 line-clamp-2 leading-tight group-hover:text-purple-300 transition-colors">
               {item.name}
             </h3>
 
-            {/* Price & Action */}
-            <div className="mt-auto pt-3 border-t" style={{ borderColor: 'rgba(75,85,99,0.2)' }}>
-              <div className="flex items-center justify-between">
-                <div className="flex flex-col">
-                  {item.originalPrice && item.originalPrice !== item.price && (
-                    <span className="text-xs text-gray-400 line-through">
-                      {typeof item.originalPrice === 'string' ? item.originalPrice : `${item.originalPrice}₺`}
-                    </span>
-                  )}
-                  <span className="text-xl font-black text-white">
-                    {typeof item.price === 'string' ? item.price : `${item.price}₺`}
+            {/* Price */}
+            <div className="mt-auto pt-2 border-t" style={{ borderColor: 'rgba(75,85,99,0.2)' }}>
+              <div className="flex flex-col">
+                {item.originalPrice && item.originalPrice !== item.price && (
+                  <span className="text-[10px] text-gray-500 line-through">
+                    {typeof item.originalPrice === 'string' ? item.originalPrice : `${item.originalPrice}₺`}
                   </span>
-                </div>
-                <motion.div
-                  className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white"
-                  style={{
-                    background: 'rgba(251, 191, 36, 0.2)',
-                    border: '1px solid rgba(251, 191, 36, 0.3)',
-                  }}
-                  whileHover={{ scale: 1.05, background: 'rgba(251, 191, 36, 0.3)' }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  İncele
-                </motion.div>
+                )}
+                <span className="text-purple-300 font-black text-sm">
+                  {typeof item.price === 'string' ? item.price : `${item.price}₺`}
+                </span>
               </div>
             </div>
           </div>
