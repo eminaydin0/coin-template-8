@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, Gamepad2, ShoppingCart, Keyboard, Loader2 } from 'lucide-react';
+import { Search, X, Gamepad2, ShoppingCart, Keyboard, Loader2, ArrowRight, Tag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCategories, getCategoryProducts } from '../services/api';
-import CommonBackground from './CommonBackground';
 
 interface HomepageItem {
   id: string;
   name: string;
-  price: number | string; // Fiyat number veya string olabilir
+  price: number | string;
   originalPrice?: number | string;
   slug: string;
   url?: string;
@@ -27,7 +26,6 @@ interface SearchModalProps {
   homepageItems: HomepageItem[];
 }
 
-// Basit bir debounce helper
 const useDebouncedCallback = (fn: (...args: any[]) => void, delay = 300) => {
   const timeout = useRef<number | null>(null);
   return useCallback(
@@ -46,7 +44,7 @@ const highlight = (text: string, query: string) => {
     const parts = text.split(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'));
     return parts.map((part, i) =>
       part.toLowerCase() === q.toLowerCase() ? (
-        <mark key={i} className="bg-purple-400/30 text-purple-300 rounded px-0.5">{part}</mark>
+        <mark key={i} className="bg-purple-500/40 text-purple-200 rounded px-0.5 font-semibold">{part}</mark>
       ) : (
         <span key={i}>{part}</span>
       )
@@ -65,11 +63,9 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const dialogRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Body scroll kilidi
   useEffect(() => {
     if (!isOpen) return;
     const original = document.body.style.overflow;
@@ -81,7 +77,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
 
   useEffect(() => {
     if (!isOpen) return;
-    setTimeout(() => searchInputRef.current?.focus(), 80);
+    setTimeout(() => searchInputRef.current?.focus(), 100);
     loadAllItems();
   }, [isOpen]);
 
@@ -185,7 +181,6 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
     onClose();
   };
 
-  // Klavye kısayolları
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -194,17 +189,18 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         setActiveIndex((i) => Math.min(i + 1, searchResults.length - 1));
-        listRef.current?.querySelectorAll('[data-row]')[Math.min(activeIndex + 1, searchResults.length - 1)]?.scrollIntoView({ block: 'nearest' });
+        const elements = listRef.current?.querySelectorAll('[data-row]');
+        elements?.[Math.min(activeIndex + 1, searchResults.length - 1)]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
       if (e.key === 'ArrowUp') {
         e.preventDefault();
         setActiveIndex((i) => Math.max(i - 1, 0));
-        listRef.current?.querySelectorAll('[data-row]')[Math.max(activeIndex - 1, 0)]?.scrollIntoView({ block: 'nearest' });
+        const elements = listRef.current?.querySelectorAll('[data-row]');
+        elements?.[Math.max(activeIndex - 1, 0)]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
       if (e.key === 'Enter') {
         const target = searchResults[activeIndex];
         if (target) {
-          // Link'i programatik tıklat
           const el = document.getElementById(`search-link-${target.id}`);
           (el as HTMLAnchorElement)?.click();
         }
@@ -214,44 +210,6 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [isOpen, searchResults, activeIndex]);
 
-  // Pencere dışı tıklama kapatma (Backdrop üstünde yakalıyoruz)
-
-  const headerHint = (
-    <div className="hidden sm:flex items-center gap-1.5 text-[10px]">
-      <div 
-        className="inline-flex items-center gap-1 rounded-md px-2 py-1"
-        style={{
-          background: 'rgba(139, 92, 246, 0.1)',
-          border: '1px solid rgba(168, 85, 247, 0.2)',
-          color: 'rgba(168, 85, 247, 0.9)',
-        }}
-      >
-        <Keyboard className="h-3 w-3" />
-        <span>↑↓</span>
-      </div>
-      <div 
-        className="inline-flex items-center gap-1 rounded-md px-2 py-1"
-        style={{
-          background: 'rgba(139, 92, 246, 0.1)',
-          border: '1px solid rgba(168, 85, 247, 0.2)',
-          color: 'rgba(168, 85, 247, 0.9)',
-        }}
-      >
-        <span>Enter</span>
-      </div>
-      <div 
-        className="inline-flex items-center gap-1 rounded-md px-2 py-1"
-        style={{
-          background: 'rgba(139, 92, 246, 0.1)',
-          border: '1px solid rgba(168, 85, 247, 0.2)',
-          color: 'rgba(168, 85, 247, 0.9)',
-        }}
-      >
-        <span>Esc</span>
-      </div>
-    </div>
-  );
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -259,184 +217,195 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
-          aria-modal
-          role="dialog"
-          aria-labelledby="search-title"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[60] flex items-start justify-center pt-[10vh] px-4"
+          onClick={handleClose}
         >
-          {/* Common Background */}
-          <CommonBackground />
-
           {/* Backdrop */}
-          <motion.button
-            type="button"
-            aria-label="Arama modülünü kapat"
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm z-10"
-            onClick={handleClose}
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
           />
 
-          {/* Modal */}
+          {/* Command Palette Style Modal */}
           <motion.div
-            ref={dialogRef}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-5xl max-h-[85vh] rounded-2xl overflow-hidden border z-20"
-            style={{
-              background: 'rgba(0, 0, 0, 0.9)',
-              border: '1px solid rgba(168, 85, 247, 0.3)',
-              boxShadow: '0 20px 60px rgba(139, 92, 246, 0.25), 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)',
-              backdropFilter: 'blur(20px)',
-            }}
+            exit={{ opacity: 0, scale: 0.96, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl z-10"
           >
-
-            <div className="relative z-10">
-              {/* Header - Compact & Modern */}
-              <div 
-                className="p-4 sm:p-5 border-b flex items-center justify-between gap-4"
-                style={{ 
-                  borderColor: 'rgba(168, 85, 247, 0.2)',
-                  background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.02))',
-                }}
-              >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div 
-                    className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 flex-shrink-0"
-                    style={{
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      border: '1px solid rgba(168, 85, 247, 0.3)',
-                    }}
-                  >
-                    <Search className="h-4 w-4 text-purple-300" />
-                    <span id="search-title" className="text-xs font-bold text-white">ARAMA</span>
+            {/* Main Container */}
+            <div
+              className="rounded-2xl overflow-hidden border shadow-2xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 25, 0.95))',
+                border: '1px solid rgba(168, 85, 247, 0.3)',
+                boxShadow: '0 25px 50px -12px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.1)',
+                backdropFilter: 'blur(24px)',
+              }}
+            >
+              {/* Search Input Bar */}
+              <div className="relative px-6 py-5 border-b" style={{ borderColor: 'rgba(168, 85, 247, 0.15)' }}>
+                <div className="flex items-center gap-4">
+                  <div className="flex-shrink-0">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.15))',
+                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                      }}
+                    >
+                      <Search className="h-5 w-5 text-purple-300" />
+                    </div>
                   </div>
-                  {headerHint}
-                </div>
-
-                <motion.button
-                  onClick={handleClose}
-                  className="group relative flex items-center justify-center w-8 h-8 rounded-lg border transition-all duration-200 flex-shrink-0"
-                  style={{
-                    background: 'rgba(75, 85, 99, 0.3)',
-                    border: '1px solid rgba(75, 85, 99, 0.4)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(139, 92, 246, 0.15)';
-                    e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(75, 85, 99, 0.3)';
-                    e.currentTarget.style.borderColor = 'rgba(75, 85, 99, 0.4)';
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <X className="w-4 h-4 text-gray-400 group-hover:text-purple-300 transition-colors duration-200" />
-                </motion.button>
-              </div>
-
-              {/* Search Input - Modern Design */}
-              <div className="px-4 sm:px-6 pt-4 pb-3">
-                <div className="relative">
-                  <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-lg" style={{ background: 'linear-gradient(180deg, rgba(168, 85, 247, 0.6), rgba(139, 92, 246, 0.4))' }} />
-                  <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-purple-300/60" />
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchQuery}
-                    onChange={handleSearchInputChange}
-                    placeholder="Oyun adı veya kategori yazın..."
-                    className="w-full pl-11 pr-12 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none transition-all duration-200 text-sm font-medium"
-                    style={{
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      border: '1px solid rgba(168, 85, 247, 0.3)',
-                      boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.3)',
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.15), inset 0 2px 4px rgba(0,0,0,0.3)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.3)';
-                      e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.3)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
-                    }}
-                    aria-autocomplete="list"
-                    aria-controls="search-results"
-                    aria-expanded={!!searchQuery}
-                  />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                  
+                  <div className="flex-1 relative">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={handleSearchInputChange}
+                      placeholder="Oyun ara... (örn: Fortnite, Valorant)"
+                      className="w-full bg-transparent text-white placeholder-gray-500 text-lg font-medium focus:outline-none"
+                      style={{ caretColor: 'rgba(168, 85, 247, 1)' }}
+                      aria-autocomplete="list"
+                      aria-controls="search-results"
+                      aria-expanded={!!searchQuery}
+                    />
                     {isSearching && (
-                      <Loader2 className="h-4 w-4 animate-spin text-purple-300" />
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                        <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                      </div>
                     )}
                   </div>
+
+                  {/* Keyboard Hints */}
+                  <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
+                    <div
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.1)',
+                        border: '1px solid rgba(168, 85, 247, 0.2)',
+                        color: 'rgba(168, 85, 247, 0.9)',
+                      }}
+                    >
+                      <Keyboard className="h-3 w-3" />
+                      <span>↑↓</span>
+                    </div>
+                    <div
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
+                      style={{
+                        background: 'rgba(139, 92, 246, 0.1)',
+                        border: '1px solid rgba(168, 85, 247, 0.2)',
+                        color: 'rgba(168, 85, 247, 0.9)',
+                      }}
+                    >
+                      <span>Enter</span>
+                    </div>
+                    <motion.button
+                      onClick={handleClose}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center"
+                      style={{
+                        background: 'rgba(75, 85, 99, 0.2)',
+                        border: '1px solid rgba(75, 85, 99, 0.3)',
+                      }}
+                    >
+                      <X className="h-4 w-4 text-gray-400" />
+                    </motion.button>
+                  </div>
                 </div>
-                {error && <p className="mt-2 text-xs text-purple-300/80">{error}</p>}
+                {error && (
+                  <p className="mt-3 text-xs text-purple-300/80 px-2">{error}</p>
+                )}
               </div>
 
-              {/* Results */}
-              <div ref={listRef} id="search-results" className="p-4 sm:p-6 max-h-[58vh] overflow-y-auto gaming-scrollbar">
+              {/* Results Container */}
+              <div
+                ref={listRef}
+                id="search-results"
+                className="max-h-[60vh] overflow-y-auto gaming-scrollbar"
+                style={{
+                  background: 'rgba(0, 0, 0, 0.3)',
+                }}
+              >
                 {isLoadingItems ? (
-                  <div className="flex flex-col items-center justify-center py-12">
-                    <Loader2 className="h-8 w-8 animate-spin text-purple-300 mb-3" />
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-1">Tüm Ürünler Yükleniyor</h3>
-                    <p className="text-gray-400 text-sm">Kategorilerden ürünler getiriliyor...</p>
+                  <div className="flex flex-col items-center justify-center py-16">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                      className="w-12 h-12 rounded-full border-2 border-purple-500/30 border-t-purple-500 mb-4"
+                    />
+                    <h3 className="text-base font-bold text-white mb-1">Ürünler Yükleniyor</h3>
+                    <p className="text-sm text-gray-400">Kategorilerden ürünler getiriliyor...</p>
                   </div>
                 ) : searchQuery ? (
                   isSearching ? (
-                    <div className="flex items-center justify-center py-12">
-                      <div className="flex items-center gap-2 text-gray-300">
-                        <Loader2 className="h-5 w-5 animate-spin text-purple-300" />
+                    <div className="flex items-center justify-center py-16">
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <Loader2 className="h-5 w-5 animate-spin text-purple-400" />
                         <span className="text-sm">Aranıyor...</span>
                       </div>
                     </div>
                   ) : searchResults.length ? (
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span 
-                          className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                          style={{
-                            background: 'rgba(139, 92, 246, 0.15)',
-                            border: '1px solid rgba(168, 85, 247, 0.3)',
-                            color: 'rgba(168, 85, 247, 0.95)',
-                          }}
-                        >
-                          {searchResults.length} SONUÇ
-                        </span>
+                    <div className="p-2">
+                      {/* Results Count */}
+                      <div className="px-4 py-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                            style={{
+                              background: 'rgba(139, 92, 246, 0.15)',
+                              border: '1px solid rgba(168, 85, 247, 0.3)',
+                              color: 'rgba(168, 85, 247, 0.95)',
+                            }}
+                          >
+                            {searchResults.length} Sonuç
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                      {/* Results List */}
+                      <div className="space-y-1">
                         {searchResults.map((item, index) => (
                           <motion.div
-                            data-row
                             key={item.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.2, delay: index * 0.03 }}
-                            className={`group relative rounded-xl border overflow-hidden transition-all duration-300 ${
-                              activeIndex === index ? 'border-purple-400/60' : 'border-purple-500/20 hover:border-purple-400/50'
-                            }`}
-                            style={{
-                              background: activeIndex === index 
-                                ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05))' 
-                                : 'rgba(0, 0, 0, 0.5)',
-                              boxShadow: activeIndex === index
-                                ? '0 4px 12px rgba(139, 92, 246, 0.2), 0 2px 6px rgba(0,0,0,0.3)'
-                                : '0 2px 4px rgba(0,0,0,0.2)',
-                            }}
-                            whileHover={{ y: -2 }}
+                            data-row
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.2, delay: index * 0.02 }}
                           >
-                            <Link id={`search-link-${item.id}`} to={`/epin/${item.slug}`} onClick={handleClose}>
-                              <div className="p-2.5">
-                                <div className="flex items-start gap-2.5">
-                                  {/* Image */}
-                                  <div 
-                                    className="relative h-12 w-12 flex-shrink-0 rounded-lg border overflow-hidden"
+                            <Link
+                              id={`search-link-${item.id}`}
+                              to={`/epin/${item.slug}`}
+                              onClick={handleClose}
+                              className="block"
+                            >
+                              <motion.div
+                                className={`relative flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 ${
+                                  activeIndex === index
+                                    ? 'bg-gradient-to-r from-purple-500/20 to-purple-600/10'
+                                    : 'hover:bg-white/5'
+                                }`}
+                                style={{
+                                  border: activeIndex === index
+                                    ? '1px solid rgba(168, 85, 247, 0.4)'
+                                    : '1px solid transparent',
+                                  boxShadow: activeIndex === index
+                                    ? '0 4px 12px rgba(139, 92, 246, 0.15)'
+                                    : 'none',
+                                }}
+                                whileHover={{ x: 4 }}
+                              >
+                                {/* Image/Icon */}
+                                <div className="flex-shrink-0">
+                                  <div
+                                    className="w-14 h-14 rounded-xl overflow-hidden border flex items-center justify-center"
                                     style={{
                                       background: 'rgba(139, 92, 246, 0.1)',
                                       border: '1px solid rgba(168, 85, 247, 0.25)',
@@ -446,7 +415,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                       <img
                                         src={item.url}
                                         alt={item.name}
-                                        className="h-full w-full object-cover"
+                                        className="w-full h-full object-cover"
                                         onError={(e) => {
                                           const target = e.currentTarget as HTMLImageElement;
                                           target.style.display = 'none';
@@ -455,95 +424,154 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                         }}
                                       />
                                     ) : null}
-                                    <div className="absolute inset-0 hidden items-center justify-center" style={{ display: item.url ? 'none' as any : 'flex' }}>
-                                      <Gamepad2 className="h-5 w-5 text-purple-300/60" />
-                                    </div>
-                                  </div>
-
-                                  {/* Content */}
-                                  <div className="min-w-0 flex-1">
-                                    <h3 className="truncate font-bold text-white text-xs mb-0.5 leading-tight">
-                                      {highlight(item.name, searchQuery)}
-                                    </h3>
-                                    {item.category?.name && (
-                                      <p className="truncate text-[10px] text-gray-400 mb-1.5">{highlight(item.category.name, searchQuery)}</p>
-                                    )}
-
-                                    <div className="flex items-center gap-1.5">
-                                      <div 
-                                        className="text-xs font-bold px-2 py-0.5 rounded"
-                                        style={{
-                                          background: 'rgba(139, 92, 246, 0.2)',
-                                          color: 'rgba(168, 85, 247, 0.95)',
-                                        }}
-                                      >
-                                        {formatPrice(item.price)}
-                                      </div>
-                                      {item.originalPrice && (
-                                        <div className="text-[10px] text-gray-500 line-through">{formatPrice(item.originalPrice)}</div>
-                                      )}
-                                    </div>
-                                  </div>
-
-                                  {/* CTA */}
-                                  <div className="flex-shrink-0 pt-0.5">
                                     <div
-                                      className="grid h-7 w-7 place-items-center rounded-lg transition-all duration-200"
-                                      style={{
-                                        background: 'rgba(139, 92, 246, 0.15)',
-                                        border: '1px solid rgba(168, 85, 247, 0.25)',
-                                      }}
-                                      onMouseEnter={(e) => {
-                                        e.currentTarget.style.background = 'rgba(139, 92, 246, 0.25)';
-                                        e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.4)';
-                                      }}
-                                      onMouseLeave={(e) => {
-                                        e.currentTarget.style.background = 'rgba(139, 92, 246, 0.15)';
-                                        e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                                      }}
+                                      className="absolute inset-0 hidden items-center justify-center"
+                                      style={{ display: item.url ? ('none' as any) : 'flex' }}
                                     >
-                                      <ShoppingCart className="h-3.5 w-3.5 text-purple-300" />
+                                      <Gamepad2 className="h-6 w-6 text-purple-300/60" />
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+
+                                {/* Content */}
+                                <div className="flex-1 min-w-0">
+                                  <h3 className="text-white font-bold text-sm mb-1 truncate">
+                                    {highlight(item.name, searchQuery)}
+                                  </h3>
+                                  {item.category?.name && (
+                                    <div className="flex items-center gap-2 mb-2">
+                                      <Tag className="h-3 w-3 text-purple-400/60" />
+                                      <span className="text-xs text-gray-400 truncate">
+                                        {highlight(item.category.name, searchQuery)}
+                                      </span>
+                                    </div>
+                                  )}
+                                  <div className="flex items-center gap-2">
+                                    <span
+                                      className="text-sm font-bold px-2.5 py-0.5 rounded-lg"
+                                      style={{
+                                        background: 'rgba(139, 92, 246, 0.2)',
+                                        color: 'rgba(192, 132, 252, 1)',
+                                      }}
+                                    >
+                                      {formatPrice(item.price)}
+                                    </span>
+                                    {item.originalPrice && (
+                                      <span className="text-xs text-gray-500 line-through">
+                                        {formatPrice(item.originalPrice)}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* Arrow Icon */}
+                                <div className="flex-shrink-0">
+                                  <div
+                                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                                    style={{
+                                      background: activeIndex === index
+                                        ? 'rgba(168, 85, 247, 0.2)'
+                                        : 'rgba(75, 85, 99, 0.2)',
+                                    }}
+                                  >
+                                    <ArrowRight className="h-4 w-4 text-purple-300" />
+                                  </div>
+                                </div>
+                              </motion.div>
                             </Link>
                           </motion.div>
                         ))}
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col items-center justify-center py-12 text-center">
-                      <div 
-                        className="grid h-16 w-16 place-items-center rounded-xl border mb-4"
+                    <div className="flex flex-col items-center justify-center py-20 text-center px-6">
+                      <motion.div
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="w-20 h-20 rounded-2xl flex items-center justify-center mb-4"
                         style={{
                           background: 'rgba(139, 92, 246, 0.1)',
                           border: '1px solid rgba(168, 85, 247, 0.3)',
                         }}
                       >
-                        <Search className="h-8 w-8 text-purple-300/60" />
-                      </div>
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Sonuç Bulunamadı</h3>
-                      <p className="max-w-md text-sm text-gray-400">"{searchQuery}" için sonuç bulunamadı. Farklı bir arama terimi deneyin.</p>
+                        <Search className="h-10 w-10 text-purple-300/60" />
+                      </motion.div>
+                      <h3 className="text-xl font-bold text-white mb-2">Sonuç Bulunamadı</h3>
+                      <p className="text-sm text-gray-400 max-w-md">
+                        "{searchQuery}" için sonuç bulunamadı. Farklı bir arama terimi deneyin.
+                      </p>
                     </div>
                   )
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div 
-                      className="grid h-20 w-20 place-items-center rounded-xl border mb-5"
+                  <div className="flex flex-col items-center justify-center py-20 text-center px-6">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="w-24 h-24 rounded-2xl flex items-center justify-center mb-6"
                       style={{
-                        background: 'rgba(139, 92, 246, 0.1)',
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1))',
                         border: '1px solid rgba(168, 85, 247, 0.3)',
                       }}
                     >
-                      <Search className="h-10 w-10 text-purple-300/60" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                      <Search className="h-12 w-12 text-purple-300/70" />
+                    </motion.div>
+                    <motion.h3
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-2xl font-bold text-white mb-3"
+                    >
                       <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
                         Oyun Ara
                       </span>
-                    </h3>
-                    <p className="max-w-md text-sm text-gray-400">Yukarıdaki kutuya oyun adı veya kategori yazarak arama yapabilirsiniz.</p>
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-sm text-gray-400 max-w-md"
+                    >
+                      Oyun adı veya kategori yazarak arama yapabilirsiniz. Klavye kısayollarını kullanarak hızlıca gezinin.
+                    </motion.p>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="flex items-center gap-3 mt-6"
+                    >
+                      <div
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
+                          color: 'rgba(168, 85, 247, 0.9)',
+                        }}
+                      >
+                        <Keyboard className="h-3.5 w-3.5" />
+                        <span>↑↓ Gezin</span>
+                      </div>
+                      <div
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
+                          color: 'rgba(168, 85, 247, 0.9)',
+                        }}
+                      >
+                        <span>Enter Seç</span>
+                      </div>
+                      <div
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        style={{
+                          background: 'rgba(139, 92, 246, 0.1)',
+                          border: '1px solid rgba(168, 85, 247, 0.2)',
+                          color: 'rgba(168, 85, 247, 0.9)',
+                        }}
+                      >
+                        <span>Esc Kapat</span>
+                      </div>
+                    </motion.div>
                   </div>
                 )}
               </div>

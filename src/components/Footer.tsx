@@ -7,8 +7,9 @@ const Footer = () => {
   return (
     <footer className="relative py-8 mt-12">
       <div className="px-4 sm:px-6 lg:px-8">
-        <div 
-          className="rounded-2xl border p-6"
+        <div className="max-w-7xl mx-auto">
+          <div 
+            className="rounded-2xl border p-6"
           style={{
             background: 'rgba(0, 0, 0, 0.6)',
             border: '1px solid rgba(168, 85, 247, 0.2)',
@@ -133,6 +134,7 @@ const Footer = () => {
             </div>
 
           </div>
+        </div>
         </div>
       </div>
     </footer>

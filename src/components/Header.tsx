@@ -31,7 +31,7 @@ interface HeaderProps {
 const navLinks = [
   { href: '/', label: 'Ana Sayfa', icon: Gamepad2 },
   { href: '/oyunlar', label: 'Oyunlar', icon: Zap },
-  { href: '/nasilyapilir', label: 'Rehber', icon: HelpCircle },
+  { href: '/rehber', label: 'Rehber', icon: HelpCircle },
   { href: '/iletisim', label: 'İletişim', icon: MessageCircle },
 ];
 
@@ -145,7 +145,8 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
       {/* Main Header */}
       <div className={`relative transition-all duration-300 ${isCompact ? 'py-2' : 'py-3'}`}>
         <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-between">
             {/* Compact Logo */}
             <Link to="/" className="flex items-center gap-2 group" aria-label="Ana sayfa">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-400 to-purple-500 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
@@ -429,6 +430,7 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                 {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
               </button>
             </div>
+          </div>
           </div>
         </div>
       </div>

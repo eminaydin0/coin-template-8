@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Clock, ShieldCheck, Sparkles, Headphones } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const CallToActionSection: React.FC = () => {
-  return (
+interface CallToActionSectionProps {
+  variant?: 'compact' | 'full';
+}
+
+const CallToActionSection: React.FC<CallToActionSectionProps> = ({ variant = 'full' }) => {
+  const content = (
     <div className="flex flex-col">
       {/* Compact Header */}
       <motion.div 
@@ -127,6 +131,26 @@ const CallToActionSection: React.FC = () => {
         </Link>
       </div>
     </div>
+  );
+
+  // Ana sayfada compact variant kullanılıyorsa, sadece içeriği döndür
+  if (variant === 'compact') {
+    return content;
+  }
+
+  // Diğer sayfalarda full variant için container ve max-width ekle
+  return (
+    <section className="relative py-8">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div 
+            className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl"
+          >
+            {content}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

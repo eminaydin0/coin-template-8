@@ -91,7 +91,7 @@ const HowItWorksSection = () => {
           transition={{ duration: 0.4, delay: 0.6 }}
         >
           <Link
-            to="/nasilyapilir"
+            to="/rehber"
             className="group relative inline-flex items-center justify-center gap-1.5 w-full px-4 py-2 rounded-lg font-semibold text-white text-xs transition-all overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(192, 132, 252, 1))',

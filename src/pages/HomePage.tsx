@@ -153,7 +153,7 @@ const HomePage = () => {
 
                 {/* CTA */}
                 <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl overflow-hidden">
-                  <CallToActionSection />
+                  <CallToActionSection variant="compact" />
                 </div>
               </div>
             </div>
@@ -241,8 +241,8 @@ const PopularProductsSidebar = ({ homepageItems, categories }: { homepageItems: 
               <div 
                 className="w-6 h-6 rounded-lg flex items-center justify-center"
                 style={{
-                  background: 'rgba(6, 182, 212, 0.12)',
-                  border: '1px solid rgba(34, 211, 238, 0.3)',
+                  background: 'rgba(139, 92, 246, 0.12)',
+                  border: '1px solid rgba(168, 85, 247, 0.3)',
                 }}
               >
                 <Gamepad2 className="h-3 w-3 text-purple-300" />
@@ -312,13 +312,13 @@ const UnifiedCard = ({
           whileHover={{ scale: 1.02, y: -2 }}
           style={{
             background: isHovered
-              ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(59, 130, 246, 0.05))'
+              ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1))'
               : 'rgba(0, 0, 0, 0.6)',
             border: isHovered
-              ? '1.5px solid rgba(34, 211, 238, 0.5)'
-              : '1px solid rgba(34, 211, 238, 0.2)',
+              ? '1.5px solid rgba(168, 85, 247, 0.5)'
+              : '1px solid rgba(168, 85, 247, 0.2)',
             boxShadow: isHovered
-              ? '0 8px 24px rgba(6, 182, 212, 0.25), 0 0 40px rgba(6, 182, 212, 0.1)'
+              ? '0 8px 24px rgba(139, 92, 246, 0.25), 0 0 40px rgba(139, 92, 246, 0.1)'
               : '0 2px 8px rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(12px)',
           }}
@@ -349,8 +349,8 @@ const UnifiedCard = ({
                   transition={{ duration: 0.3 }}
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-cyan-500/30 to-blue-600/20 flex items-center justify-center">
-                  <Gamepad2 className="h-6 w-6 text-cyan-300" />
+                <div className="w-full h-full bg-gradient-to-br from-purple-500/30 to-purple-600/20 flex items-center justify-center">
+                  <Gamepad2 className="h-6 w-6 text-purple-300" />
                 </div>
               )}
               {/* Glow Effect */}
@@ -359,9 +359,9 @@ const UnifiedCard = ({
                   className="absolute inset-0 rounded-lg"
                   animate={{
                     boxShadow: [
-                      '0 0 20px rgba(6, 182, 212, 0.4)',
-                      '0 0 30px rgba(6, 182, 212, 0.6)',
-                      '0 0 20px rgba(6, 182, 212, 0.4)',
+                      '0 0 20px rgba(139, 92, 246, 0.4)',
+                      '0 0 30px rgba(168, 85, 247, 0.6)',
+                      '0 0 20px rgba(139, 92, 246, 0.4)',
                     ],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -371,17 +371,17 @@ const UnifiedCard = ({
 
             {/* Content */}
             <div className="flex-1 min-w-0">
-              <h3 className="text-white font-bold text-xs mb-1 group-hover:text-cyan-300 transition-colors duration-200 truncate">
+              <h3 className="text-white font-bold text-xs mb-1 group-hover:text-purple-300 transition-colors duration-200 truncate">
                 {product.name}
               </h3>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-cyan-300 font-black text-sm">
+                <span className="text-purple-300 font-black text-sm">
                   {typeof product.price === 'string' ? product.price : `${product.price}₺`}
                 </span>
                 {product.rating && (
-                  <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">
-                    <Star className="h-2.5 w-2.5 text-cyan-300 fill-current" />
-                    <span className="text-cyan-300 text-[10px] font-semibold">{product.rating}</span>
+                  <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
+                    <Star className="h-2.5 w-2.5 text-purple-300 fill-current" />
+                    <span className="text-purple-300 text-[10px] font-semibold">{product.rating}</span>
                   </div>
                 )}
               </div>
@@ -405,13 +405,13 @@ const UnifiedCard = ({
           whileHover={{ scale: 1.05, rotate: 1 }}
           style={{
             background: isHovered
-              ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.1))'
+              ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1))'
               : 'rgba(0, 0, 0, 0.6)',
             border: isHovered
-              ? '1.5px solid rgba(34, 211, 238, 0.5)'
-              : '1px solid rgba(34, 211, 238, 0.2)',
+              ? '1.5px solid rgba(168, 85, 247, 0.5)'
+              : '1px solid rgba(168, 85, 247, 0.2)',
             boxShadow: isHovered
-              ? '0 8px 24px rgba(6, 182, 212, 0.25), 0 0 40px rgba(6, 182, 212, 0.1)'
+              ? '0 8px 24px rgba(139, 92, 246, 0.25), 0 0 40px rgba(139, 92, 246, 0.1)'
               : '0 2px 8px rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(12px)',
           }}
@@ -446,8 +446,8 @@ const UnifiedCard = ({
                   onError={() => setImageError(true)}
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-cyan-500/30 to-blue-600/20 flex items-center justify-center">
-                  <span className="text-cyan-300 font-black text-lg">
+                <div className="w-full h-full bg-gradient-to-br from-purple-500/30 to-purple-600/20 flex items-center justify-center">
+                  <span className="text-purple-300 font-black text-lg">
                     {initials(category.name)}
                   </span>
                 </div>
@@ -458,9 +458,9 @@ const UnifiedCard = ({
                   className="absolute inset-0 rounded-full"
                   animate={{
                     boxShadow: [
-                      '0 0 20px rgba(6, 182, 212, 0.5)',
-                      '0 0 35px rgba(6, 182, 212, 0.7)',
-                      '0 0 20px rgba(6, 182, 212, 0.5)',
+                      '0 0 20px rgba(139, 92, 246, 0.5)',
+                      '0 0 35px rgba(168, 85, 247, 0.7)',
+                      '0 0 20px rgba(139, 92, 246, 0.5)',
                     ],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
@@ -469,7 +469,7 @@ const UnifiedCard = ({
             </motion.div>
 
             {/* Category Name */}
-            <h3 className="text-white font-bold text-[10px] text-center group-hover:text-cyan-300 transition-colors duration-200 line-clamp-2">
+            <h3 className="text-white font-bold text-[10px] text-center group-hover:text-purple-300 transition-colors duration-200 line-clamp-2">
               {category.name}
             </h3>
           </div>

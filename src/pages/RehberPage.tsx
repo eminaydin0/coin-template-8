@@ -17,7 +17,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import CommonBackground from '../components/CommonBackground';
 import CallToActionSection from '../components/CallToActionSection';
 
-const NasilYapilirPage = () => {
+const RehberPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const NasilYapilirPage = () => {
         <div className="relative z-10 flex items-center justify-center min-h-screen">
           <LoadingSpinner 
             size="xl" 
-            text="Nasıl Yapılır Yükleniyor..." 
+            text="Rehber Yükleniyor..." 
             variant="gaming" 
           />
         </div>
@@ -129,7 +129,7 @@ const NasilYapilirPage = () => {
                   <span>Ana Sayfa</span>
                 </Link>
                 <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                <span className="text-gray-300 font-medium">Nasıl Yapılır</span>
+                <span className="text-gray-300 font-medium">Rehber</span>
               </div>
 
               {/* Title Section */}
@@ -146,7 +146,7 @@ const NasilYapilirPage = () => {
                   </div>
                   <h1 className="text-xl sm:text-2xl font-bold text-white">
                     <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
-                      Nasıl Yapılır?
+                      Rehber
                     </span>
                   </h1>
                 </div>
@@ -314,4 +314,5 @@ const StepCard = ({ step }: StepCardProps) => {
   );
 };
 
-export default NasilYapilirPage;
+export default RehberPage;
+

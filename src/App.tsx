@@ -26,7 +26,7 @@ import ContractPage from './pages/ContractPage';
 import BulkPurchasePage from './pages/BulkPurchasePage';
 import ReturnsPage from './pages/ReturnsPage';
 import LiveSupportPage from './pages/LiveSupportPage';
-import NasilYapilirPage from './pages/NasilYapilirPage';
+import RehberPage from './pages/RehberPage';
 import ProfilePage from './pages/ProfilePages';
 import './App.css';
 
@@ -68,7 +68,7 @@ function App() {
                 <Route path="/oyunlar/:slug" element={<CategoryDetailPage />} />
                 <Route path="/epin/:slug" element={<ProductDetailPage />} />
                 <Route path="/sepet" element={<CartPage />} />
-                <Route path="/nasilyapilir" element={<NasilYapilirPage />} />
+                <Route path="/rehber" element={<RehberPage />} />
                 <Route path="/iletisim" element={<ContactPage />} />
                 <Route path="/siparislerim" element={<OrdersPage />} />
                 <Route path="/banka-hesaplari" element={<BankAccountsPage />} />

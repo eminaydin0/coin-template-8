@@ -52,58 +52,70 @@ const LoginPage = () => {
         <CommonBackground />
 
         <div className="w-full relative z-10">
-          {/* Header Section - CategoriesPage Stili */}
-          <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-              <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
-                {/* Breadcrumb */}
-                <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
-                  <Link 
-                    to="/" 
-                    className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
-                  >
-                    <Home className="h-3.5 w-3.5" />
-                    <span>Ana Sayfa</span>
-                  </Link>
-                  <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                  <span className="text-gray-300 font-medium">Giriş Yap</span>
-                </div>
-
-                {/* Title Section */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="flex items-center gap-2">
-                    <div 
-                      className="w-7 h-7 rounded-lg flex items-center justify-center"
-                      style={{
-                        background: 'rgba(139, 92, 246, 0.15)',
-                        border: '1px solid rgba(168, 85, 247, 0.3)',
-                      }}
-                    >
-                      <LogIn className="h-4 w-4 text-purple-300" />
-                    </div>
-                    <h1 className="text-xl sm:text-2xl font-bold text-white">
-                      <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
-                        Giriş Yap
-                      </span>
-                    </h1>
-                  </div>
-
-                  {/* Badge */}
-                  <div className="flex items-center gap-1.5">
-                    <span
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                      style={{
-                        background: 'rgba(139, 92, 246, 0.15)',
-                        border: '1px solid rgba(168, 85, 247, 0.3)',
-                        color: 'rgba(168, 85, 247, 0.95)',
-                        backdropFilter: 'blur(8px)',
-                      }}
-                    >
-                      HESAP GİRİŞİ
-                    </span>
-                  </div>
-                </div>
+          {/* Header Section - Login Özel Tasarım */}
+          <div className="w-full mb-6 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mx-auto">
+              {/* Breadcrumb */}
+              <div className="flex items-center justify-center gap-1.5 text-xs mb-4">
+                <Link 
+                  to="/" 
+                  className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
+                >
+                  <Home className="h-3.5 w-3.5" />
+                  <span>Ana Sayfa</span>
+                </Link>
+                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
+                <span className="text-gray-300 font-medium">Giriş Yap</span>
               </div>
+
+              {/* Title Section - Kompakt */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="text-center"
+              >
+                {/* Icon Container - Kompakt */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="inline-flex items-center justify-center mb-3"
+                >
+                  <div 
+                    className="w-12 h-12 rounded-xl flex items-center justify-center relative"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.12))',
+                      border: '1.5px solid rgba(168, 85, 247, 0.35)',
+                      boxShadow: '0 4px 16px rgba(139, 92, 246, 0.2)',
+                    }}
+                  >
+                    <LogIn className="h-6 w-6 text-purple-300" />
+                  </div>
+                </motion.div>
+
+                {/* Title */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
+                  className="text-2xl sm:text-3xl font-bold text-white mb-2"
+                >
+                  <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                    Hesabına Giriş Yap
+                  </span>
+                </motion.h1>
+
+                {/* Subtitle */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="text-gray-400 text-xs sm:text-sm"
+                >
+                  Oyun dünyasına hoş geldin!
+                </motion.p>
+              </motion.div>
             </div>
           </div>
 

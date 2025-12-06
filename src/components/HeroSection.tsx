@@ -232,7 +232,7 @@ export default function HeroSection({
           </Link>
 
           <Link
-            to="/nasilyapilir"
+            to="/rehber"
             className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-white text-sm backdrop-blur-xl transition-all"
             style={{
               background: 'rgba(255, 255, 255, 0.08)',
